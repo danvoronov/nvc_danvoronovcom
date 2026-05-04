@@ -30,6 +30,7 @@ img { max-width: 100%; height: auto; }
     <li><a href="#stage6">Етап 6. Політика і Дім Емпатії (2022–2026)</a></li>
     <li><a href="#legacy">Спадщина: 8 мільярдів почутих сердець</a></li>
   </ul>
+  <div class="sidebar-footer"><a href="../" style="color: gray; text-decoration: none; font-size: 14px;">← На головну</a></div>
 </nav>
 
 <div class="container">
@@ -228,30 +229,7 @@ img { max-width: 100%; height: auto; }
 
 </div>
 
-<script>
-  const sections = document.querySelectorAll('h2[id]');
-  const navLinks = document.querySelectorAll('.sidebar-nav a');
-
-  function updateActiveLink() {
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      if (window.scrollY >= sectionTop - 100) {
-        current = section.getAttribute('id');
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) {
-        link.classList.add('active');
-      }
-    });
-  }
-
-  window.addEventListener('scroll', updateActiveLink);
-  updateActiveLink();
-</script>
+<script src="../active-link.js" defer></script>
 
 </body>
 </html>
