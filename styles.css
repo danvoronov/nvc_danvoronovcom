@@ -79,6 +79,7 @@ body {
 .sidebar-nav a.active {
     background: var(--heading-color);
     color: white;
+    font-weight: bold;
 }
 
 @media (max-width: 900px) {
