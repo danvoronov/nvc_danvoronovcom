@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     
     const meetBtn = document.getElementById('meet-btn');
-    const meetBtnText = meetBtn ? meetBtn.querySelector('.btn-text') : null;
     const copyMeetBtn = document.getElementById('copy-meet-btn');
     const retroAlert = document.getElementById('retro-alert');
     const alertMsg = document.getElementById('alert-msg');
@@ -24,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inventorySlots = document.querySelectorAll('.inventory-slot');
     const itemTitle = document.getElementById('item-title');
     const itemTextPrimary = document.getElementById('item-text-primary');
+    const itemTexts = document.querySelectorAll('.item-text');
+    const itemTitles = document.querySelectorAll('.item-title');
 
     // --- RPG Inventory Data ---
     const inventoryData = {
@@ -121,6 +122,77 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleOff: () => playSound([880, 440], 0.12, 'sine', 0.08)
     };
 
+    // --- Ambient Background Music ---
+    const ambientChords = [
+        [261.63, 329.63, 392.00, 493.88], // Cmaj7
+        [220.00, 261.63, 329.63, 392.00], // Am7
+        [293.66, 349.23, 440.00, 523.25], // Dm7
+        [392.00, 493.88, 587.33, 698.46]  // G7
+    ];
+    let ambientChordIdx = 0;
+    let ambientNodes = [];
+    let ambientInterval = null;
+
+    function stopAmbient() {
+        if (ambientInterval) {
+            clearInterval(ambientInterval);
+            ambientInterval = null;
+        }
+        ambientNodes.forEach(n => {
+            try { n.osc.stop(); } catch(e) {}
+        });
+        ambientNodes = [];
+    }
+
+    function playAmbientChord() {
+        if (!soundEnabled || !audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        ambientNodes.forEach(n => {
+            try { n.osc.stop(); } catch(e) {}
+        });
+        ambientNodes = [];
+
+        const freqs = ambientChords[ambientChordIdx];
+        ambientChordIdx = (ambientChordIdx + 1) % ambientChords.length;
+
+        ambientNodes = freqs.map(freq => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.04, now);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            return { osc, gain };
+        });
+    }
+
+    async function startAmbient() {
+        stopAmbient();
+        if (!soundEnabled) return;
+        try {
+            initAudio();
+            if (audioCtx.state === 'suspended') {
+                await audioCtx.resume();
+            }
+            playAmbientChord();
+            ambientInterval = setInterval(playAmbientChord, 18000);
+        } catch(e) {
+            console.warn('Ambient music failed:', e);
+        }
+    }
+
+    let ambientStarted = false;
+    async function tryStartAmbient() {
+        if (!ambientStarted && soundEnabled) {
+            ambientStarted = true;
+            await startAmbient();
+        }
+    }
+    document.addEventListener('click', tryStartAmbient, { once: true });
+
     // --- Interactive Hover Effects ---
     const interactiveElements = document.querySelectorAll(
         'button, a, .inventory-slot, .step-node'
@@ -148,18 +220,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    soundToggle.addEventListener('click', () => {
+    soundToggle.addEventListener('click', async () => {
         soundEnabled = !soundEnabled;
         if (soundEnabled) {
             soundToggle.classList.add('active');
             soundToggle.textContent = 'ON';
-            // Force resume audio context
             initAudio();
             sounds.toggleOn();
+            await startAmbient();
         } else {
             soundToggle.classList.remove('active');
             soundToggle.textContent = 'OFF';
-            // Audio context won't be called, so no sound
+            stopAmbient();
         }
     });
 
@@ -205,14 +277,14 @@ document.addEventListener('DOMContentLoaded', () => {
             slot.classList.add('active');
             slot.setAttribute('aria-selected', 'true');
 
-            const data = inventoryData[key];
-            
             itemTitle.style.opacity = 0;
             itemTextPrimary.style.opacity = 0;
 
             setTimeout(() => {
-                itemTitle.textContent = data.title;
-                itemTextPrimary.textContent = data.text;
+                const nextTitle = document.querySelector(`.item-title[data-item="${key}"]`);
+                const nextText = document.querySelector(`.item-text[data-item="${key}"]`);
+                if (nextTitle) itemTitle.textContent = nextTitle.textContent;
+                if (nextText) itemTextPrimary.textContent = nextText.textContent;
                 
                 itemTitle.style.opacity = 1;
                 itemTextPrimary.style.opacity = 1;
@@ -273,7 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
             statusIndicator.className = 'status-indicator online blinking';
             meetBtn.removeAttribute('disabled');
             meetBtn.classList.remove('disabled');
-            if (meetBtnText) meetBtnText.textContent = 'ЗАПУСТИТИ MEET';
             return;
         }
 
@@ -309,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
         statusIndicator.className = 'status-indicator offline';
         meetBtn.setAttribute('disabled', 'disabled');
         meetBtn.classList.add('disabled');
-        if (meetBtnText) meetBtnText.textContent = 'ЗАПУСТИТИ MEET';
     }
 
     updateStatus();

@@ -34,15 +34,19 @@
             
             <div class="controls-panel">
                 <div class="control-item">
-                    <span class="control-label">CRT FILTER</span>
+                    <span class="control-label">CRT ФІЛЬТР</span>
                     <button id="crt-toggle" class="retro-btn active" aria-label="Перемкнути CRT фільтр">ON</button>
                 </div>
                 <div class="control-item">
-                    <span class="control-label">SOUND</span>
+                    <span class="control-label">ЗВУК</span>
                     <button id="sound-toggle" class="retro-btn active" aria-label="Перемкнути звук">ON</button>
                 </div>
             </div>
         </header>
+
+        <div class="hero-image-wrap">
+            <img src="weare.jpg" alt="Ми — Емпатійне Кафе" class="hero-image">
+        </div>
 
         <!-- Main Dashboard -->
         <main class="retro-grid">
@@ -51,16 +55,16 @@
             <section class="retro-card hero-section" id="intro">
                 <div class="card-header">
                     <span id="status-indicator" class="status-indicator blinking"></span>
-                    <h2>STATUS: <span id="status-text">ONLINE</span></h2>
+                    <h2>ЗАРАЗ: <span id="status-text">ONLINE</span></h2>
                 </div>
                 <div class="card-content text-center">
-                    <p class="promo-text blinking-fast">ЗАХОДЬ НА ЕМПАТІЮ</p>
+                    <p class="promo-text">ЗАХОДЬ НА ЕМПАТІЮ</p>
                     <p class="highlight-text">
-                        Можна підключатися не з початку й не до кінця, камера — за бажанням.
+                        Можна підключатися не з початку й не до кінця, камера — за бажанням
                     </p>
                     <div class="action-zone">
                         <a href="https://meet.google.com/rwm-zzjr-bre" target="_blank" id="meet-btn" class="pixel-btn primary">
-                            <span class="btn-text">ЗАПУСТИТИ MEET</span>
+                            <span class="btn-text">ВІДКРИТИ GOOGLE MEET</span>
                         </a>
                         <button id="copy-meet-btn" class="pixel-btn secondary">
                             <span class="btn-text">СКОПІЮВАТИ ЛІНК</span>
@@ -68,7 +72,7 @@
                     </div>
                     <div class="hero-info-row">
                         <div class="hero-info-item info-date">ЩОЧЕТВЕРГА, 19:20 (КИЇВ)</div>
-                        <div class="hero-info-item info-cost">ВАРТІСТЬ 0 ГРН / ДОНАТ ВЕДУЧИМ</div>
+                        <div class="hero-info-item info-cost">ВАРТІСТЬ 0 ГРН / <a href="https://send.monobank.ua/jar/2gqZf46MR2" target="_blank" class="donate-link">MONO ДОНАТ</a> ВЕДУЧИМ</div>
                     </div>
                 </div>
             </section>
@@ -122,19 +126,19 @@
                     <div class="rules-text-panel">
                         <h3>ГОЛОВНЕ: ЖОДНИХ ПОРАД І ОЦІНОК</h3>
                         <ul class="pixel-list">
-                            <li> Тут не змагаємося, у кого досвід правильніший.</li>                 
-                            <li> Тут не вчимо одне одного краще чи правильно жити.</li>
-                            <li> Тут не рятуємо.</li>
-                            <li> Тут не пояснюємо, що людина “насправді мала на увазі”.</li>
+                            <li> Тут не змагаємося, у кого досвід правильніший</li>                 
+                            <li> Тут не вчимо одне одного жити</li>
+                            <li> Тут не рятуємо</li>
+                            <li> Тут не пояснюємо, що людина “насправді мала на увазі”</li>
                         </ul>
                         <div class="action-highlight">
                             <h4>НАВТОМІСТЬ СЛУХАЄМО:</h4>
                             <p>
-                                Досвід, що людина відчуває, що для неї важливо, яка потреба за цим стоїть, де є напруга, а де навпаки — живість і радість.
+                                Про досвід, про відчуття, де є напруга, а де навпаки — живість і радість, що важливо та які потреби за цим стоїть.
                             </p>
                         </div>
-                        <p class="rules-notice">
-                            Після висловлювання інші учасники/-ці — <strong>тільки з дозволу</strong> людини — можуть дати емпатичний відгук: не пораду, не аналіз, а спробу <em>повернути почуте</em> через почуття та потреби, які вони почули.
+                        <p>
+                            Інші учасники/-ці — <strong>тільки з дозволу</strong> людини — можуть надати емпатичний відгук: не аналіз, а спробу <em>повернути почуте</em> через почуття та потреби, які вони помітили.
                         </p>
                     </div>
 
@@ -149,37 +153,37 @@
                 <div class="card-content">
                     <p class="desc-text">Зустріч триває <strong>2 години</strong> у груповому дзвінку Google Meet:</p>
                     <div class="timeline-horizontal">
-                        <div class="step-node" data-step="1" data-desc="На початку короткий чек-ін: з чим прийшли.">
+                        <div class="step-node" data-step="1" data-desc="На початку короткий чек-ін: як ви зараз та з чим прийшли">
                             <div class="step-badge">01</div>
                             <div class="step-name">Чек-ін</div>
                         </div>
                         <div class="step-connector"></div>
-                        <div class="step-node" data-step="2" data-desc="Від фасилітаторів кілька слів про базу емпатійного слухання, я-висловлювання тощо.">
+                        <div class="step-node" data-step="2" data-desc="Від фасилітаторів кілька слів про базу емпатійного слухання, я-висловлювання, тощо">
                             <div class="step-badge">02</div>
-                            <div class="step-name">Теорія / База</div>
+                            <div class="step-name">Про формат</div>
                         </div>
                         <div class="step-connector"></div>
-                        <div class="step-node" data-step="3" data-desc="Можна підключитися коли зручно і на скільки зможете. Бути з початку до кінця не обов'язково.">
+                        <div class="step-node" data-step="3" data-desc="Можна підключитися коли зручно і на скільки зможете. Бути з початку до кінця не обов'язково">
                             <div class="step-badge">03</div>
                             <div class="step-name">Гнучкий час</div>
                         </div>
                         <div class="step-connector"></div>
-                        <div class="step-node" data-step="4" data-desc="У кожного/ої за бажанням є свій час, щоб поділитися чимось важливим.">
+                        <div class="step-node" data-step="4" data-desc="У вас за бажанням є свій час, щоб поділитися важливим">
                             <div class="step-badge">04</div>
                             <div class="step-name">Власний час</div>
                         </div>
                         <div class="step-connector"></div>
-                        <div class="step-node" data-step="5" data-desc="Є варіант, коли всі мовчать, якщо не хочуть говорити — це теж нормально.">
+                        <div class="step-node" data-step="5" data-desc="Говорити не обов'язково: можна просто бути присутніми і слухати.">
                             <div class="step-badge">05</div>
-                            <div class="step-name">Тиша за бажанням</div>
-                        </div>
-                        <div class="step-connector"></div>
-                        <div class="step-node" data-step="6" data-desc="Говорити не обов'язково: можна просто бути присутніми і слухати.">
-                            <div class="step-badge">06</div>
                             <div class="step-name">Вільне слухання</div>
+                        </div>                        
+                        <div class="step-connector"></div>
+                        <div class="step-node" data-step="6" data-desc="Є варіант, коли ВСІ мовчать, якщо не хочуть говорити — це теж нормально">
+                            <div class="step-badge">06</div>
+                            <div class="step-name">Тиша</div>
                         </div>
                         <div class="step-connector"></div>
-                        <div class="step-node" data-step="7" data-desc="Наприкінці зробимо короткий чек-аут: як вам було і з чим ви йдете.">
+                        <div class="step-node" data-step="7" data-desc="Наприкінці короткий чек-аут: як вам було і з чим йдете">
                             <div class="step-badge">07</div>
                             <div class="step-name">Чек-аут</div>
                         </div>
@@ -232,14 +236,26 @@
                         <!-- Description Panel -->
                         <div class="item-description-panel" id="item-desc-panel">
                             <div class="panel-header">
-                                <h3 id="item-title">РАДІСТЬ &amp; ЖИВЕ</h3>
+                                <h3 class="item-title-active" id="item-title">РАДІСТЬ &amp; ЖИВЕ</h3>
                                 <span class="item-type">EMOTIONAL ITEM</span>
                             </div>
                             <div class="panel-body">
-                                <p id="item-text-primary">
-                                    Точно можна приходити з хорошим: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям живості, бажанням поділитися тим, що вийшло, або просто побути серед людей, де не треба стискатися, захищатися чи доводити право на свій досвід.
+                                <p class="item-text-active" id="item-text-primary">
+                                    Точно можна приходити з тим що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.
                                 </p>
+                                <p class="item-text" data-item="heavy">З будь-чим важким, заплутаним, незручним, дрібним, соромітним, невисловленим. Коли фонове відчуття “зі мною щось не так”, складність попросити про підтримку, неможливість сказати “ні”, втома весь час пояснювати себе іншим.</p>
+                                <p class="item-text" data-item="intimacy">Тут простір прийняття квірного, кінк, поліаморного, немоногамного досвіду — і водночас дуже звичайних людських інтимних переживань, знайомих багатьом. Про сексуальність, згоду, турботу, ревнощі, прив'язаність, чесність, свободу, конфлікти, відновлення після болісного досвіду, соромом говорити про секс, кінк чи фантазії.</p>
+                                <p class="item-text" data-item="relations">Можна приходити з темами про близькість, довіру, дистанцію, з досвідом моногамних і немоногамних стосунків, труднощами у поліаморних конфігураціях, переживаннями через NRE (нову енергію стосунків), болем від ієрархій або нечітких ролей, складністю витримувати процеси партнерів/-ок, страхом осуду за свою ідентичність.</p>
+                                <p class="item-text" data-item="small">Навіть із тим, що “ніби не така вже й проблема”, але чомусь не відпускає. Можна приходити і з тим, що наче “дрібниця”: незручна розмова, дивний осад після побачення, повідомлення без відповіді, накопичене роздратування, внутрішній ступор.</p>
+                                <p class="item-text" data-item="joy">Точно можна приходити з тим що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.</p>
                             </div>
+                        </div>
+                        <div class="item-titles-hidden">
+                            <h3 class="item-title" data-item="relations">БЛИЗЬКІСТЬ &amp; СТОСУНКИ</h3>
+                            <h3 class="item-title" data-item="intimacy">СЕКС &amp; БАЖАНЯ</h3>
+                            <h3 class="item-title" data-item="heavy">ВАЖКЕ &amp; СКЛАДНЕ</h3>
+                            <h3 class="item-title" data-item="small">ДРІБНИЦІ ЖИТТЯ</h3>
+                            <h3 class="item-title" data-item="joy">РАДІСТЬ &amp; ЖИВЕ</h3>
                         </div>
                     </div>
                 </div>
@@ -248,10 +264,19 @@
             <!-- Effects List (Static) -->
             <section class="retro-card full-width" id="effects-list">
                 <div class="card-header">
-                    <h2>✨ ЗАХОДЬ</h2>
+                    <h2>🍵 ПРИЄДНУЙСЯ</h2>
                 </div>
                 <div class="card-content">
-                    <p class="desc-text">Не потрібно бути “достатньо досвідченими”, “достатньо правильними” чи приходити з ідеально сформульованим запитом.</p>
+                    <span class="pixel-cross">+</span>
+                    <br/>
+                    <p class="desc-text">Запрошуємо побути серед людей, де не треба стискатися, захищатися чи доводити право на свій досвід. Не потрібно бути “достатньо досвідченими”, “достатньо правильними” чи приходити з ідеально сформульованим запитом. </p>
+                    <div class="action-zone" style="margin-top:20px">
+                        <a href="https://t.me/adulttalkcafe" target="_blank" class="pixel-btn primary">
+                            <span class="btn-text">ЧАТ У ТЕЛЕГРАМ</span>
+                        </a>
+                    </div>
+                    <br/>
+                    <span class="pixel-cross">+</span>
                 </div>
             </section>
 
@@ -259,9 +284,7 @@
 
         <!-- Footer -->
         <footer class="retro-footer text-center">
-            <span class="pixel-cross">+</span>
             <p>© 2026 ЕМПАТІЙНЕ КАФЕ для дорослих розмов. </p>
-            <span class="pixel-cross">+</span>
         </footer>
 
     </div>
