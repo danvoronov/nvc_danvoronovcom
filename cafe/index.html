@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Емпатійне кафе | Простір емпатійного слухання та NVC</title>
+    <meta name="description" content="Емпатійне кафе — структурована онлайн-зустріч для спілкування, де слухаємо одна одну й тренуємо безоціночне слухання за принципами Ненасильницького спілкування (NVC) Маршалла Розенберга.">
+    <meta name="keywords" content="емпатія, NVC, ненасильницьке спілкування, безоціночне слухання, емпатійне кафе, психологія, зустрічі онлайн">
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Емпатійне кафе | Онлайн-простір без оцінок">
+    <meta property="og:description" content="Структурована онлайн-зустріч для емпатійного спілкування та безоціночного слухання. Заходь на емпатію.">
+    <meta property="og:image" content="sug.png">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="crt-active">
+    
+    <!-- CRT Screen Overlay Effects -->
+    <div class="crt-overlay"></div>
+    <div class="crt-scanlines"></div>
+
+    <div class="app-container">
+        
+        <!-- Controls Panel -->
+        <header class="retro-header">
+            <div class="header-logo-section">
+                <span class="pixel-cross top-left">+</span>
+                <span class="pixel-cross top-right">+</span>
+                <h1 class="glitch-title" data-text="ЕМПАТІЙНЕ КАФЕ">ЕМПАТІЙНЕ КАФЕ</h1>
+                <p class="subtitle">д л я   д о р о с л и х   р о з м о в</p>
+            </div>
+            
+            <div class="controls-panel">
+                <div class="control-item">
+                    <span class="control-label">CRT FILTER</span>
+                    <button id="crt-toggle" class="retro-btn active" aria-label="Перемкнути CRT фільтр">ON</button>
+                </div>
+                <div class="control-item">
+                    <span class="control-label">SOUND</span>
+                    <button id="sound-toggle" class="retro-btn active" aria-label="Перемкнути звук">ON</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="retro-grid">
+            
+            <!-- Hero / Entrance Section -->
+            <section class="retro-card hero-section" id="intro">
+                <div class="card-header">
+                    <span id="status-indicator" class="status-indicator blinking"></span>
+                    <h2>STATUS: <span id="status-text">ONLINE</span></h2>
+                </div>
+                <div class="card-content text-center">
+                    <p class="promo-text blinking-fast">ЗАХОДЬ НА ЕМПАТІЮ</p>
+                    <p class="highlight-text">
+                        Можна підключатися під анонімним ніком, а камера — за бажанням.
+                    </p>
+                    <div class="action-zone">
+                        <a href="https://meet.google.com/rwm-zzjr-bre" target="_blank" id="meet-btn" class="pixel-btn primary">
+                            <span class="btn-text">ЗАПУСТИТИ MEET</span>
+                        </a>
+                        <button id="copy-meet-btn" class="pixel-btn secondary">
+                            <span class="btn-text">СКОПІЮВАТИ ЛІНК</span>
+                        </button>
+                    </div>
+                    <div class="hero-info-row">
+                        <div class="hero-info-item info-date">ЧЕТВЕР, 14 ТРАВНЯ, 19:30 (КЙВ)</div>
+                        <div class="hero-info-item info-cost">ВАРТІСТЬ 0 ГРН / ДОНАТ ВЕДУЧИМ</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="retro-card double-column" id="about">
+                <div class="card-header">
+                    <h2>📋 ПРО ЩО ЦЕ?</h2>
+                </div>
+                <div class="card-content grid-2col">
+                    <div class="about-block left-block">
+                        <p>
+                            Коли навколо багато оцінок, порад і швидких висновків, емпатія стає не абстрактною красивою ідеєю, а дуже практичною потребою.
+                        </p>
+                        <p>
+                            <strong>Емпатійне кафе</strong> — це структурована онлайн-зустріч для спілкування, де слухаємо одна одну й тренуємо безоціночне слухання за принципами Ненасильницького спілкування / NVC Розенберга.
+                        </p>
+                         <p>
+                            Фасілітатори допомагатимуть тримати цю рамку і швидко реагуватимуть на осуд, токсичність або спроби перетворити простір на дискусійний клуб.
+                        </p>
+                    </div>
+                    <div class="about-block right-block warn-border">
+                        <h3 class="warn-text">⚠️ ЧИМ ЦЕ НЕ Є</h3>
+                        <p class="warn-highlight">
+                            Цей простір створений для теплих і підтримуючих розмов, але він НЕ є терапевтичною групою. 
+                        </p>
+                        <p class="warn-highlight">
+                            Якщо ви переживаєте сильний <i>біль, травму чи кризовий стан</i>, дбайливішим рішенням  буде не відкриті онлайн-розмови з незнайомими людьми, а звернення до професійної психологічної допомоги!
+                        </p>                        
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rules Section (with sug.png) -->
+            <section class="retro-card full-width" id="rules">
+                <div class="card-header">
+                    <h2>🛑 ПРОПОЗИЦІЇ СПІЛЬНОСТІ</h2>
+                </div>
+                <div class="card-content rules-layout">
+                    
+                    <!-- Left: sug.png Image in Retro Frame -->
+                    <div class="image-frame-container">
+                        <div class="arcade-cabinet-frame">
+                            <div class="screen-bezel">
+                                <img src="sug.png" alt="Пропозиції емпатійного кафе: Залученість, Взаємоповага, Без оцінок і порад, Говоримо від себе, Менше про думки, Конфіденційність" class="rules-image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Textual details of rules -->
+                    <div class="rules-text-panel">
+                        <h3>ГОЛОВНЕ: ЖОДНИХ ПОРАД І ОЦІНОК</h3>
+                        <ul class="pixel-list">
+                            <li> Ми не вчимо одне одного жити.</li>
+                            <li> Не рятуємо.</li>
+                            <li> Не пояснюємо людині, що вона “насправді мала на увазі”.</li>
+                            <li> Не змагаємося, у кого досвід правильніший.</li>
+                        </ul>
+                        <div class="action-highlight">
+                            <h4>НАВТОМІСТЬ СЛУХАЄМО:</h4>
+                            <p>
+                                Досвід, що людина відчуває, що для неї важливо, яка потреба за цим стоїть, де є напруга, а де навпаки — живість і радість.
+                            </p>
+                        </div>
+                        <p class="rules-notice">
+                            Після висловлювання інші учасники/-ці — <strong>тільки з дозволу</strong> людини — можуть дати емпатичний відгук: не пораду, не аналіз, а спробу <em>повернути почуте</em> через почуття та потреби, які вони почули.
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Quest Flow / How it goes -->
+            <section class="retro-card" id="flow">
+                <div class="card-header">
+                    <h2>⚙️ ЯК УСЕ ВІДБУВАТИМЕТЬСЯ</h2>
+                </div>
+                <div class="card-content">
+                    <p class="desc-text">Зустріч триває <strong>2 години</strong> у груповому дзвінку Google Meet. Квести та кроки:</p>
+                    <div class="timeline-steps">
+                        <div class="step-item" data-step="1">
+                            <div class="step-num">01</div>
+                            <div class="step-detail">
+                                <strong>Чек-ін</strong>
+                                <span>На початку короткий чек-ін: з чим прийшли.</span>
+                            </div>
+                        </div>
+                        <div class="step-item" data-step="2">
+                            <div class="step-num">02</div>
+                            <div class="step-detail">
+                                <strong>Теорія / База</strong>
+                                <span>Від фасилітаторів кілька слів про базу емпатійного слухання, я-висловлювання тощо.</span>
+                            </div>
+                        </div>
+                        <div class="step-item" data-step="3">
+                            <div class="step-num">03</div>
+                            <div class="step-detail">
+                                <strong>Гнучкий час</strong>
+                                <span>Можна підключитися коли зручно і на скільки зможете. Бути з початку до кінця не обов'язково.</span>
+                            </div>
+                        </div>
+                        <div class="step-item" data-step="4">
+                            <div class="step-num">04</div>
+                            <div class="step-detail">
+                                <strong>Власний час</strong>
+                                <span>У кожного/ої за бажанням є свій час, щоб поділитися чимось важливим.</span>
+                            </div>
+                        </div>
+                        <div class="step-item" data-step="5">
+                            <div class="step-num">05</div>
+                            <div class="step-detail">
+                                <strong>Тиша за бажанням</strong>
+                                <span>Є варіант, коли всі мовчать, якщо не хочуть говорити — це теж нормально.</span>
+                            </div>
+                        </div>
+                        <div class="step-item" data-step="6">
+                            <div class="step-num">06</div>
+                            <div class="step-detail">
+                                <strong>Вільне слухання</strong>
+                                <span>Говорити не обов’язково: можна просто бути присутніми і слухати.</span>
+                            </div>
+                        </div>
+                        <div class="step-item" data-step="7">
+                            <div class="step-num">07</div>
+                            <div class="step-detail">
+                                <strong>Чек-аут</strong>
+                                <span>Наприкінці зробимо короткий чек-аут: як вам було і з чим ви йдете.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- RPG Inventory Section (With what you can come) -->
+            <section class="retro-card full-width" id="inventory-section">
+                <div class="card-header">
+                    <h2>👛 З ЧИМ МОЖНА ПРИХОДИТИ?</h2>
+                </div>
+                <div class="card-content inventory-layout">
+                    <p class="inventory-intro">
+                        Оберіть слот у вашому емоційному інвентарі, щоб дізнатися деталі:
+                    </p>
+                    <div class="inventory-container">
+                        
+                        <!-- Grid of Slots -->
+                        <div class="inventory-grid" id="inventory-grid" role="tablist">
+                            <button class="inventory-slot slot-full active" data-item="joy" role="tab" aria-selected="true" aria-controls="item-desc-panel" aria-label="Слот 1: Радість та Живе">
+                                <span class="slot-num">★</span>
+                                <span class="slot-icon">🎉</span>
+                                <span class="slot-title">РАДІСТЬ &amp; ЖИВЕ</span>
+                            </button>
+                            <button class="inventory-slot" data-item="relations" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 2: Стосунки та Поліаморія">
+                                <span class="slot-num">1</span>
+                                <span class="slot-icon">💖</span>
+                                <span class="slot-title">БЛИЗКІСТЬ &amp; СТОСУНКИ</span>
+                            </button>
+                            <button class="inventory-slot" data-item="intimacy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 3: Близькість та Ідентичність">
+                                <span class="slot-num">2</span>
+                                <span class="slot-icon">🍓</span>
+                                <span class="slot-title">СЕКС &amp; БАЖАНЯ</span>
+                            </button>
+                            <button class="inventory-slot" data-item="heavy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 4: Важке та Заплутане">
+                                <span class="slot-num">3</span>
+                                <span class="slot-icon">🏋️</span>
+                                <span class="slot-title">ВАЖКЕ &amp; СКЛАДНЕ</span>
+                            </button>
+                            <button class="inventory-slot" data-item="small" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 5: Дрібниці життя">
+                                <span class="slot-num">4</span>
+                                <span class="slot-icon">🤔</span>
+                                <span class="slot-title">ДРІБНИЦІ ЖИТТЯ</span>
+                            </button>
+                        </div>
+
+                        <!-- Description Panel -->
+                        <div class="item-description-panel" id="item-desc-panel">
+                            <div class="panel-header">
+                                <h3 id="item-title">РАДІСТЬ &amp; ЖИВЕ</h3>
+                                <span class="item-type">EMOTIONAL ITEM</span>
+                            </div>
+                            <div class="panel-body">
+                                <p id="item-text-primary">
+                                    І можна приходити з хорошим: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям живості, бажанням поділитися тим, що вийшло, або просто побути серед людей, де не треба стискатися, захищатися чи доводити право на свій досвід.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Effects List (Static) -->
+            <section class="retro-card full-width" id="effects-list">
+                <div class="card-header">
+                    <h2>✨ ЗАХОДЬ</h2>
+                </div>
+                <div class="card-content">
+                    <p class="desc-text">Не потрібно бути “достатньо досвідченими”, “достатньо правильними” чи приходити з ідеально сформульованим запитом.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="retro-footer text-center">
+            <span class="pixel-cross">+</span>
+            <p>© 2026 ЕМПАТІЙНЕ КАФЕ для дорослих розмов. </p>
+            <span class="pixel-cross">+</span>
+        </footer>
+
+    </div>
+
+    <!-- Hidden alert box for link copied -->
+    <div id="retro-alert" class="retro-alert-box hidden">
+        <span class="alert-border-t"></span>
+        <p id="alert-msg">LINK COPIED TO CLIPBOARD!</p>
+        <span class="alert-border-b"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
