@@ -122,51 +122,165 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleOff: () => playSound([880, 440], 0.12, 'sine', 0.08)
     };
 
-    // --- Ambient Background Music ---
-    const ambientChords = [
-        [261.63, 329.63, 392.00, 493.88], // Cmaj7
-        [220.00, 261.63, 329.63, 392.00], // Am7
-        [293.66, 349.23, 440.00, 523.25], // Dm7
-        [392.00, 493.88, 587.33, 698.46]  // G7
-    ];
-    let ambientChordIdx = 0;
+    // --- MIDI-style Ambient Background Music ---
+    const ambientTempo = 72;
+    const beatLength = 60 / ambientTempo;
+    const loopBeats = 32;
+    const loopLength = loopBeats * beatLength;
     let ambientNodes = [];
-    let ambientInterval = null;
+    let ambientLoopTimer = null;
+    let ambientStopTimer = null;
+    let ambientMasterGain = null;
 
     function stopAmbient() {
-        if (ambientInterval) {
-            clearInterval(ambientInterval);
-            ambientInterval = null;
+        if (ambientLoopTimer) {
+            clearTimeout(ambientLoopTimer);
+            ambientLoopTimer = null;
         }
-        ambientNodes.forEach(n => {
-            try { n.osc.stop(); } catch(e) {}
-        });
+        if (ambientStopTimer) {
+            clearTimeout(ambientStopTimer);
+            ambientStopTimer = null;
+        }
+
+        const nodesToStop = ambientNodes.slice();
         ambientNodes = [];
+
+        if (ambientMasterGain && audioCtx) {
+            const now = audioCtx.currentTime;
+            ambientMasterGain.gain.cancelScheduledValues(now);
+            ambientMasterGain.gain.setTargetAtTime(0.0001, now, 0.04);
+        }
+
+        ambientStopTimer = setTimeout(() => {
+            nodesToStop.forEach(node => {
+                try { node.stop(); } catch(e) {}
+            });
+            ambientStopTimer = null;
+        }, 140);
     }
 
-    function playAmbientChord() {
-        if (!soundEnabled || !audioCtx) return;
-        const now = audioCtx.currentTime;
+    function resetAmbientMaster() {
+        if (!audioCtx) return null;
 
-        ambientNodes.forEach(n => {
-            try { n.osc.stop(); } catch(e) {}
-        });
-        ambientNodes = [];
+        ambientMasterGain = audioCtx.createGain();
+        ambientMasterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        ambientMasterGain.gain.linearRampToValueAtTime(0.78, audioCtx.currentTime + 0.7);
+        ambientMasterGain.connect(audioCtx.destination);
+        return ambientMasterGain;
+    }
 
-        const freqs = ambientChords[ambientChordIdx];
-        ambientChordIdx = (ambientChordIdx + 1) % ambientChords.length;
+    function getAmbientOutput() {
+        return ambientMasterGain || resetAmbientMaster() || audioCtx.destination;
+    }
 
-        ambientNodes = freqs.map(freq => {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
+    function midiToFreq(note) {
+        return 440 * Math.pow(2, (note - 69) / 12);
+    }
+
+    function trackAmbientNode(node) {
+        ambientNodes.push(node);
+        node.addEventListener('ended', () => {
+            ambientNodes = ambientNodes.filter(activeNode => activeNode !== node);
+        }, { once: true });
+    }
+
+    function scheduleAmbientTone(note, beat, durationBeats, instrument = 'keys', velocity = 1) {
+        if (!audioCtx) return;
+
+        const start = audioCtx.currentTime + beat * beatLength;
+        const duration = durationBeats * beatLength;
+        const freq = midiToFreq(note);
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        if (instrument === 'bass') {
+            osc.type = 'triangle';
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(420, start);
+            gain.gain.setValueAtTime(0.0001, start);
+            gain.gain.linearRampToValueAtTime(0.036 * velocity, start + 0.09);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+        } else if (instrument === 'bell') {
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, now);
-            gain.gain.setValueAtTime(0.04, now);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start(now);
-            return { osc, gain };
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1700, start);
+            gain.gain.setValueAtTime(0.0001, start);
+            gain.gain.linearRampToValueAtTime(0.02 * velocity, start + 0.06);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+        } else {
+            osc.type = 'triangle';
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(950, start);
+            gain.gain.setValueAtTime(0.0001, start);
+            gain.gain.linearRampToValueAtTime(0.032 * velocity, start + 0.12);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+        }
+
+        osc.frequency.setValueAtTime(freq, start);
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(getAmbientOutput());
+        osc.start(start);
+        osc.stop(start + duration + 0.08);
+        trackAmbientNode(osc);
+    }
+
+    function scheduleCafeTick(beat, velocity = 1) {
+        if (!audioCtx) return;
+
+        const start = audioCtx.currentTime + beat * beatLength;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const filter = audioCtx.createBiquadFilter();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1400, start);
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1250, start);
+        filter.Q.setValueAtTime(10, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.linearRampToValueAtTime(0.012 * velocity, start + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.08);
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(getAmbientOutput());
+        osc.start(start);
+        osc.stop(start + 0.1);
+        trackAmbientNode(osc);
+    }
+
+    function scheduleAmbientLoop() {
+        if (!soundEnabled || !audioCtx) return;
+
+        const chords = [
+            { beat: 0, notes: [60, 64, 67, 71] },   // Cmaj7
+            { beat: 8, notes: [57, 60, 64, 67] },   // Am7
+            { beat: 16, notes: [62, 65, 69, 72] },  // Dm7
+            { beat: 24, notes: [55, 59, 62, 65] }   // G7
+        ];
+        const bass = [
+            [0, 48], [4, 55], [8, 45], [12, 52],
+            [16, 50], [20, 57], [24, 43], [28, 50]
+        ];
+        const melody = [
+            [1.25, 72], [2, 72], [3.5, 74], [6, 71],
+            [10, 69], [11.5, 67], [14, 64],
+            [18, 65], [19.5, 69], [22, 72],
+            [26, 71], [27.5, 69], [30, 67]
+        ];
+        const ticks = [1.5, 5.5, 9.5, 13.5, 17.5, 21.5, 25.5, 29.5];
+
+        chords.forEach(chord => {
+            chord.notes.forEach((note, idx) => {
+                scheduleAmbientTone(note, chord.beat + idx * 0.04, 7.6, 'keys', 0.76);
+            });
         });
+        bass.forEach(([beat, note]) => scheduleAmbientTone(note, beat, 3.4, 'bass', 0.82));
+        melody.forEach(([beat, note]) => scheduleAmbientTone(note, beat, 1.6, 'bell', 0.68));
+        ticks.forEach(beat => scheduleCafeTick(beat, 0.36));
+
+        ambientLoopTimer = setTimeout(scheduleAmbientLoop, loopLength * 1000);
     }
 
     async function startAmbient() {
@@ -177,8 +291,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audioCtx.state === 'suspended') {
                 await audioCtx.resume();
             }
-            playAmbientChord();
-            ambientInterval = setInterval(playAmbientChord, 18000);
+            resetAmbientMaster();
+            scheduleAmbientLoop();
         } catch(e) {
             console.warn('Ambient music failed:', e);
         }
@@ -341,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isOnline = kyiv.day === 4 && totalMin >= eventStart && totalMin < eventEnd;
 
         if (isOnline) {
-            statusText.textContent = 'ONLINE';
+            statusText.innerHTML = '<span class="status-word status-online">ONLINE</span>';
             statusIndicator.className = 'status-indicator online blinking';
             meetBtn.removeAttribute('disabled');
             meetBtn.classList.remove('disabled');
@@ -373,9 +487,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (hours > 0) countdown += `${hours}г `;
             countdown += `${mins}хв`;
 
-            statusText.textContent = `OFFLINE — ${countdown} до наступної зустрічі`;
+            statusText.innerHTML = `<span class="status-word status-offline">OFFLINE</span><span class="status-detail"> — ${countdown} до наступної зустрічі</span>`;
         } else {
-            statusText.textContent = 'OFFLINE';
+            statusText.innerHTML = '<span class="status-word status-offline">OFFLINE</span>';
         }
         statusIndicator.className = 'status-indicator offline';
         meetBtn.setAttribute('disabled', 'disabled');
