@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     
     const meetBtn = document.getElementById('meet-btn');
+    const meetBtnText = meetBtn ? meetBtn.querySelector('.btn-text') : null;
     const copyMeetBtn = document.getElementById('copy-meet-btn');
     const retroAlert = document.getElementById('retro-alert');
     const alertMsg = document.getElementById('alert-msg');
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Interactive Hover Effects ---
     const interactiveElements = document.querySelectorAll(
-        'button, a, .inventory-slot, .step-item'
+        'button, a, .inventory-slot, .step-node'
     );
     
     interactiveElements.forEach(el => {
@@ -270,6 +271,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isOnline) {
             statusText.textContent = 'ONLINE';
             statusIndicator.className = 'status-indicator online blinking';
+            meetBtn.removeAttribute('disabled');
+            meetBtn.classList.remove('disabled');
+            if (meetBtnText) meetBtnText.textContent = 'ЗАПУСТИТИ MEET';
             return;
         }
 
@@ -303,10 +307,63 @@ document.addEventListener('DOMContentLoaded', () => {
             statusText.textContent = 'OFFLINE';
         }
         statusIndicator.className = 'status-indicator offline';
+        meetBtn.setAttribute('disabled', 'disabled');
+        meetBtn.classList.add('disabled');
+        if (meetBtnText) meetBtnText.textContent = 'ЗАПУСТИТИ MEET';
     }
 
     updateStatus();
     setInterval(updateStatus, 1000);
+
+    // --- Global Timeline Tooltip ---
+    const tooltip = document.getElementById('timeline-tooltip');
+    const tooltipNum = document.getElementById('tooltip-step-num');
+    const tooltipText = document.getElementById('tooltip-text');
+    const stepNodes = document.querySelectorAll('.step-node');
+
+    stepNodes.forEach(node => {
+        node.addEventListener('mouseenter', (e) => {
+            const desc = node.getAttribute('data-desc');
+            const step = node.getAttribute('data-step');
+            if (!desc) return;
+            tooltipNum.textContent = `КРОК 0${step}`;
+            tooltipText.textContent = desc;
+            tooltip.classList.remove('hidden');
+            positionTooltip(e);
+        });
+
+        node.addEventListener('mousemove', (e) => {
+            positionTooltip(e);
+        });
+
+        node.addEventListener('mouseleave', () => {
+            tooltip.classList.add('hidden');
+        });
+    });
+
+    function positionTooltip(e) {
+        const x = e.clientX;
+        const y = e.clientY;
+        const tw = tooltip.offsetWidth || 200;
+        const th = tooltip.offsetHeight || 80;
+        const gap = 16;
+
+        let left = x + gap;
+        let top = y - th / 2;
+
+        if (left + tw > window.innerWidth - gap) {
+            left = x - tw - gap;
+        }
+        if (top < gap) {
+            top = gap;
+        }
+        if (top + th > window.innerHeight - gap) {
+            top = window.innerHeight - th - gap;
+        }
+
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = top + 'px';
+    }
 
     console.log("8-Bit Cafe Interaction Loaded! Press 'C' for CRT, 'S' for Sound.");
 });
