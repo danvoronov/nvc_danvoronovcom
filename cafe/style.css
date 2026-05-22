@@ -608,6 +608,32 @@ body.crt-active::after {
     }
 }
 
+.action-sub-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.action-sub-row .pixel-btn {
+    flex: 1;
+}
+
+@media (min-width: 768px) {
+    .action-sub-row {
+        gap: 16px;
+    }
+    .action-sub-row .pixel-btn {
+        flex: 0 1 auto;
+    }
+}
+
+.pixel-btn.btn-small {
+    font-size: 0.6rem;
+    min-height: 36px;
+    padding: 8px 10px;
+    white-space: nowrap;
+}
+
 .hero-info-row {
     display: grid;
     grid-template-columns: 1fr; /* Mobile base */

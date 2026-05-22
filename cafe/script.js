@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const meetBtn = document.getElementById('meet-btn');
     const copyMeetBtn = document.getElementById('copy-meet-btn');
+    const calendarBtn = document.getElementById('calendar-btn');
     const retroAlert = document.getElementById('retro-alert');
     const alertMsg = document.getElementById('alert-msg');
     
@@ -371,6 +372,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Google Calendar Event Handler ---
+    calendarBtn.addEventListener('click', () => {
+        sounds.click();
+
+        const nextEvent = getNextEventDate();
+        const k = getKyivParts(nextEvent);
+
+        const dateStr = `${k.year}${String(k.month).padStart(2, '0')}${String(k.dayOfMonth).padStart(2, '0')}T${String(k.hour).padStart(2, '0')}${String(k.minute).padStart(2, '0')}00`;
+        const endDateStr = `${k.year}${String(k.month).padStart(2, '0')}${String(k.dayOfMonth).padStart(2, '0')}T${String(k.hour + 2).padStart(2, '0')}3000`;
+
+        const url = `https://www.google.com/calendar/render?action=TEMPLATE` +
+            `&text=${encodeURIComponent('Емпатійне Кафе')}` +
+            `&dates=${dateStr}/${endDateStr}` +
+            `&ctz=Europe/Kyiv` +
+            `&location=${encodeURIComponent('https://meet.google.com/rwm-zzjr-bre')}` +
+            `&details=${encodeURIComponent('Емпатійне Кафе — щотижнева зустріч.\nЩочетверга 19:20–21:30 (Київ)\n\nСайт: https://empathy.danvoronov.com/cafe/\nMeet: https://meet.google.com/rwm-zzjr-bre')}`;
+
+        window.open(url, '_blank');
+        sounds.success();
+    });
+
     meetBtn.addEventListener('click', () => {
         sounds.success();
     });
@@ -445,6 +467,29 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    function getNextEventDate() {
+        const now = new Date();
+        const kyiv = getKyivParts(now);
+        const totalMin = kyiv.hour * 60 + kyiv.minute;
+        const eventStart = 19 * 60 + 20;
+
+        let daysToAdd;
+        if (kyiv.day === 4) {
+            daysToAdd = totalMin < eventStart ? 0 : 7;
+        } else {
+            daysToAdd = (4 - kyiv.day + 7) % 7;
+        }
+
+        let nextEvent = new Date(kyiv.year, kyiv.month - 1, kyiv.dayOfMonth + daysToAdd, 19, 20, 0, 0);
+        for (let i = 0; i < 2; i++) {
+            const k = getKyivParts(nextEvent);
+            const diff = (k.hour * 60 + k.minute) - eventStart;
+            if (diff !== 0) nextEvent = new Date(nextEvent.getTime() - diff * 60000);
+        }
+
+        return nextEvent;
+    }
+
     function updateStatus() {
         const now = new Date();
         const kyiv = getKyivParts(now);
@@ -462,20 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let daysToAdd;
-        if (kyiv.day === 4) {
-            daysToAdd = totalMin < eventStart ? 0 : 7;
-        } else {
-            daysToAdd = (4 - kyiv.day + 7) % 7;
-        }
-
-        let nextEvent = new Date(kyiv.year, kyiv.month - 1, kyiv.dayOfMonth + daysToAdd, 19, 20, 0, 0);
-        for (let i = 0; i < 2; i++) {
-            const k = getKyivParts(nextEvent);
-            const diff = (k.hour * 60 + k.minute) - eventStart;
-            if (diff !== 0) nextEvent = new Date(nextEvent.getTime() - diff * 60000);
-        }
-
+        const nextEvent = getNextEventDate();
         const diffMs = nextEvent.getTime() - now.getTime();
         if (diffMs > 0) {
             const days = Math.floor(diffMs / 86400000);
