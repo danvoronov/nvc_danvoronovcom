@@ -43,6 +43,8 @@
     --text-dim: #a0a0a5;
     --warn-color: #ff3c3c;
     --warn-glow: rgba(255, 60, 60, 0.3);
+    --success-color: #44cc44;
+    --success-glow: rgba(68, 204, 68, 0.3);
     
     --pixel-border-width: 2px;
     
@@ -608,32 +610,6 @@ body.crt-active::after {
     }
 }
 
-.action-sub-row {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-}
-
-.action-sub-row .pixel-btn {
-    flex: 1;
-}
-
-@media (min-width: 768px) {
-    .action-sub-row {
-        gap: 16px;
-    }
-    .action-sub-row .pixel-btn {
-        flex: 0 1 auto;
-    }
-}
-
-.pixel-btn.btn-small {
-    font-size: 0.6rem;
-    min-height: 36px;
-    padding: 8px 10px;
-    white-space: nowrap;
-}
-
 .hero-info-row {
     display: grid;
     grid-template-columns: 1fr; /* Mobile base */
@@ -976,6 +952,142 @@ body.crt-active::after {
     padding: 10px;
     color: var(--text-color);
     background-color: rgba(255, 102, 0, 0.05);
+}
+
+/* --- Dialog Examples Section --- */
+.dialog-examples {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+    .dialog-examples {
+        gap: 30px;
+    }
+}
+
+.example-block {
+    padding: 16px;
+    border: 2px solid;
+    background-color: var(--bg-darker);
+}
+
+.example-block.bad {
+    border-color: var(--warn-color);
+    box-shadow: inset 0 0 6px var(--warn-glow);
+}
+
+.example-block.good {
+    border-color: var(--success-color);
+    box-shadow: inset 0 0 6px var(--success-glow);
+}
+
+.example-label {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px dotted;
+}
+
+.example-block.bad .example-label {
+    color: var(--warn-color);
+    border-color: var(--warn-color);
+}
+
+.example-block.good .example-label {
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.dialog-line {
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-left: 3px solid;
+}
+
+.example-block.bad .dialog-line {
+    border-color: rgba(255, 60, 60, 0.3);
+    color: #ff9999;
+}
+
+.situation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.situation-block {
+    border: 1px solid rgba(68, 204, 68, 0.2);
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.situation-summary {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px dotted rgba(68, 204, 68, 0.15);
+}
+
+.response-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+@media (max-width: 480px) {
+    .response-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.response-grid-header {
+    margin-bottom: 4px;
+}
+
+.response-col-label {
+    font-family: var(--font-heading);
+    font-size: 0.45rem;
+    color: rgba(68, 204, 68, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(68, 204, 68, 0.1);
+}
+
+.response-col {
+    color: #99ff99;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    padding: 2px 4px 2px 10px;
+    border-left: 2px solid rgba(68, 204, 68, 0.2);
+}
+
+.response-col strong {
+    color: #ccffcc;
+    text-shadow: 0 0 6px rgba(68, 204, 68, 0.4);
+}
+
+.dialog-summary {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.8rem;
+}
+
+.dialog-hint {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-style: italic;
+}
+}
+
+.dialog-line:last-child {
+    margin-bottom: 0;
 }
 
 /* --- Quest Timeline (How it goes) --- */

@@ -15,10 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     
     const meetBtn = document.getElementById('meet-btn');
-    const copyMeetBtn = document.getElementById('copy-meet-btn');
     const calendarBtn = document.getElementById('calendar-btn');
-    const retroAlert = document.getElementById('retro-alert');
-    const alertMsg = document.getElementById('alert-msg');
     
     const inventoryGrid = document.getElementById('inventory-grid');
     const inventorySlots = document.querySelectorAll('.inventory-slot');
@@ -348,28 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
             soundToggle.textContent = 'OFF';
             stopAmbient();
         }
-    });
-
-    // --- Google Meet Link Copy Handler ---
-    copyMeetBtn.addEventListener('click', () => {
-        sounds.click();
-        
-        // Custom message copying (since exact link is provided in DM)
-        const textToCopy = "https://meet.google.com/rwm-zzjr-bre";
-        
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            sounds.success();
-            
-            // Show custom retro alert toast
-            alertMsg.textContent = "ДЕТАЛІ СКОПІЙОВАНО В БУФЕР!";
-            retroAlert.classList.remove('hidden');
-            
-            setTimeout(() => {
-                retroAlert.classList.add('hidden');
-            }, 2500);
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-        });
     });
 
     // --- Google Calendar Event Handler ---
