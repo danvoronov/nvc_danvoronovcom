@@ -351,6 +351,19 @@ footer {
     padding: 2px 5px;
 }
 
+a {
+    color: var(--text-color);
+    text-decoration: underline;
+    text-decoration-color: var(--muted-color);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--accent-color);
+    text-decoration-color: var(--accent-color);
+}
+
 a.content-link {
     color: var(--link-color);
     text-decoration: none;
