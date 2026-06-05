@@ -512,49 +512,96 @@ document.addEventListener('DOMContentLoaded', () => {
     const tooltipText = document.getElementById('tooltip-text');
     const stepNodes = document.querySelectorAll('.step-node');
 
-    stepNodes.forEach(node => {
-        node.addEventListener('mouseenter', (e) => {
-            const desc = node.getAttribute('data-desc');
-            const step = node.getAttribute('data-step');
-            if (!desc) return;
-            tooltipNum.textContent = `КРОК 0${step}`;
-            tooltipText.textContent = desc;
-            tooltip.classList.remove('hidden');
-            positionTooltip(e);
-        });
+    let activeNode = null;
 
-        node.addEventListener('mousemove', (e) => {
-            positionTooltip(e);
-        });
+    function showTooltip(node) {
+        const desc = node.getAttribute('data-desc');
+        const step = node.getAttribute('data-step');
+        if (!desc) return;
+        
+        tooltipNum.textContent = `КРОК 0${step}`;
+        tooltipText.textContent = desc;
+        tooltip.classList.remove('hidden');
+        activeNode = node;
+        updateTooltipPosition();
+    }
 
-        node.addEventListener('mouseleave', () => {
-            tooltip.classList.add('hidden');
-        });
-    });
+    function hideTooltip() {
+        tooltip.classList.add('hidden');
+        activeNode = null;
+    }
 
-    function positionTooltip(e) {
-        const x = e.clientX;
-        const y = e.clientY;
+    function updateTooltipPosition() {
+        if (!activeNode || tooltip.classList.contains('hidden')) return;
+
+        const rect = activeNode.getBoundingClientRect();
         const tw = tooltip.offsetWidth || 200;
         const th = tooltip.offsetHeight || 80;
-        const gap = 16;
+        const gap = 12;
 
-        let left = x + gap;
-        let top = y - th / 2;
+        // Default: position below the node
+        let left = rect.left + (rect.width / 2) - (tw / 2);
+        let top = rect.bottom + gap;
 
-        if (left + tw > window.innerWidth - gap) {
-            left = x - tw - gap;
-        }
-        if (top < gap) {
-            top = gap;
-        }
+        // If it goes below the screen, position above the node
         if (top + th > window.innerHeight - gap) {
-            top = window.innerHeight - th - gap;
+            top = rect.top - th - gap;
+        }
+
+        // Prevent it from going out of bounds horizontally
+        if (left < gap) {
+            left = gap;
+        } else if (left + tw > window.innerWidth - gap) {
+            left = window.innerWidth - tw - gap;
         }
 
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
     }
+
+    stepNodes.forEach(node => {
+        // Desktop hover
+        node.addEventListener('mouseenter', () => {
+            if (window.matchMedia('(hover: hover)').matches) {
+                showTooltip(node);
+            }
+        });
+
+        node.addEventListener('mouseleave', () => {
+            if (window.matchMedia('(hover: hover)').matches) {
+                hideTooltip();
+            }
+        });
+
+        // Mobile click toggle
+        node.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            if (activeNode === node && !tooltip.classList.contains('hidden')) {
+                hideTooltip();
+            } else {
+                showTooltip(node);
+            }
+        });
+    });
+
+    // Hide tooltip when clicking outside
+    document.addEventListener('click', (e) => {
+        if (activeNode && !activeNode.contains(e.target) && !tooltip.contains(e.target)) {
+            hideTooltip();
+        }
+    });
+
+    // Hide on scroll to prevent hanging on mobile
+    window.addEventListener('scroll', () => {
+        hideTooltip();
+    }, { passive: true });
+
+    // Update position on resize
+    window.addEventListener('resize', () => {
+        if (activeNode) {
+            updateTooltipPosition();
+        }
+    }, { passive: true });
 
     console.log("8-Bit Cafe Interaction Loaded! Press 'C' for CRT, 'S' for Sound.");
 });

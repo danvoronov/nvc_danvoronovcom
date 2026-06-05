@@ -499,6 +499,28 @@ body.crt-active::after {
     }
 }
 
+/* --- Empathy Quote --- */
+.empathy-quote {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-color);
+    text-align: center;
+    padding: 10px 15px;
+    margin: 5px auto 20px;
+    opacity: 0.9;
+    max-width: 800px;
+    line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+    .empathy-quote {
+        font-size: 1.25rem;
+        padding: 15px 30px;
+        margin: 5px auto 20px;
+    }
+}
+
 /* --- Hero Section --- */
 .hero-section {
     grid-column: span 1; /* Match mobile base */
@@ -555,11 +577,23 @@ body.crt-active::after {
     font-family: var(--font-heading);
     font-size: 1.1rem; /* Mobile base */
     line-height: 1.35;
-    color: var(--orange-bright);
-    text-shadow: 0 0 12px var(--orange-glow-heavy);
     margin: 15px 0;
     letter-spacing: 1px;
-    animation: breathe-glow 3.5s ease-in-out infinite;
+    
+    /* Gentle bottom-to-top wave */
+    background: linear-gradient(
+        0deg,
+        var(--orange-bright) 0%,
+        var(--orange-bright) 45%,
+        #fff 50%,
+        var(--orange-bright) 55%,
+        var(--orange-bright) 100%
+    );
+    background-size: 100% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px var(--orange-glow));
+    animation: wave-up 4s linear infinite;
 }
 
 @media (min-width: 768px) {
@@ -569,14 +603,12 @@ body.crt-active::after {
     }
 }
 
-@keyframes breathe-glow {
-    0%, 100% {
-        opacity: 1;
-        text-shadow: 0 0 8px var(--orange-glow);
+@keyframes wave-up {
+    0% {
+        background-position: 0% 200%;
     }
-    50% {
-        opacity: 0.7;
-        text-shadow: 0 0 20px var(--orange-glow-heavy), 0 0 40px rgba(255, 102, 0, 0.3);
+    100% {
+        background-position: 0% 0%;
     }
 }
 
@@ -648,13 +680,13 @@ body.crt-active::after {
 .donate-link {
     color: var(--orange-bright);
     text-decoration: none;
-    border-bottom: 2px dotted var(--orange-dim);
+    border-bottom: 2px dotted #55ff55;
     transition: all 0.15s ease;
 }
 
 .donate-link:hover {
     color: var(--text-color);
-    border-bottom-color: var(--orange-bright);
+    border-bottom-color: #aaffaa;
     text-shadow: 0 0 8px var(--orange-glow);
 }
 
@@ -790,6 +822,24 @@ body.crt-active::after {
     color: #ff8888 !important;
     font-weight: bold;
     font-size: 1.05rem !important;
+}
+
+.about-block-benefit {
+    grid-column: 1 / -1;
+    color: var(--orange-bright);
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+    font-style: italic;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(255, 102, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+    .about-block-benefit {
+        font-size: 1.15rem;
+        padding-top: 20px;
+    }
 }
 
 /* --- Rules Section with sug.png --- */
