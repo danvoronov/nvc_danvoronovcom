@@ -419,6 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Status & Countdown (ONLINE: Thu 19:20-21:30 Kyiv) ---
     const statusText = document.getElementById('status-text');
     const statusIndicator = document.getElementById('status-indicator');
+    const infoDateEl = document.querySelector('.info-date');
 
     function getKyivParts(date) {
         const fmt = new Intl.DateTimeFormat('en-US', {
@@ -444,13 +445,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getNextEventDate() {
         const now = new Date();
-        const kyiv = getKyivParts(now);
-        const totalMin = kyiv.hour * 60 + kyiv.minute;
         const eventStart = 19 * 60 + 20;
 
+        if (typeof nextDates !== 'undefined' && nextDates.length > 0) {
+            for (let dateStr of nextDates) {
+                const parts = dateStr.split('-');
+                if (parts.length === 3) {
+                    const year = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10);
+                    const day = parseInt(parts[2], 10);
+                    
+                    let candidate = new Date(year, month - 1, day, 19, 20, 0, 0);
+                    for (let i = 0; i < 2; i++) {
+                        const k = getKyivParts(candidate);
+                        const diff = (k.hour * 60 + k.minute) - eventStart;
+                        if (diff !== 0) candidate = new Date(candidate.getTime() - diff * 60000);
+                    }
+                    
+                    const eventEnd = new Date(candidate.getTime() + (2 * 60 + 10) * 60000);
+                    if (now < eventEnd) {
+                        return candidate;
+                    }
+                }
+            }
+        }
+
+        // Fallback
+        const kyiv = getKyivParts(now);
+        const totalMin = kyiv.hour * 60 + kyiv.minute;
         let daysToAdd;
         if (kyiv.day === 4) {
-            daysToAdd = totalMin < eventStart ? 0 : 7;
+            daysToAdd = (totalMin < 21 * 60 + 30) ? 0 : 7;
         } else {
             daysToAdd = (4 - kyiv.day + 7) % 7;
         }
@@ -467,12 +492,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateStatus() {
         const now = new Date();
-        const kyiv = getKyivParts(now);
-        const totalMin = kyiv.hour * 60 + kyiv.minute;
-        const eventStart = 19 * 60 + 20;
-        const eventEnd = 21 * 60 + 30;
+        const nextEvent = getNextEventDate();
+        const eventEnd = new Date(nextEvent.getTime() + (2 * 60 + 10) * 60000);
 
-        const isOnline = kyiv.day === 4 && totalMin >= eventStart && totalMin < eventEnd;
+        if (infoDateEl) {
+            const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+            let dateStr = nextEvent.toLocaleDateString('uk-UA', dateOptions);
+            infoDateEl.textContent = `${dateStr.toUpperCase()}, 19:20 (КИЇВСЬКИЙ ЧАС)`;
+        }
+
+        const isOnline = now >= nextEvent && now < eventEnd;
 
         if (isOnline) {
             statusText.innerHTML = '<span class="status-word status-online">ONLINE</span>';
@@ -482,7 +511,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const nextEvent = getNextEventDate();
         const diffMs = nextEvent.getTime() - now.getTime();
         if (diffMs > 0) {
             const days = Math.floor(diffMs / 86400000);
