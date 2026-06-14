@@ -119,6 +119,7 @@ body {
   background-color: var(--bg-deep);
   line-height: 1.85;
   overflow-x: hidden;
+  overflow-wrap: break-word;
 }
 
 ::selection {
@@ -188,7 +189,7 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 6rem 0 3rem 0;
+  padding: 7rem 0 3rem 0;
   overflow: hidden;
   background: linear-gradient(to bottom, rgba(19, 16, 12, 0.35), rgba(19, 16, 12, 0.65)), url('img/back.jpg') no-repeat center center;
   background-size: cover;
@@ -266,6 +267,7 @@ body {
   z-index: 1;
   text-align: center;
   max-width: 720px;
+  padding: 0 1.5rem;
 }
 
 .hero__info-badge {
@@ -274,10 +276,13 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+  width: max-content;
+  max-width: calc(100% - 2rem);
+  text-align: center;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
   opacity: 0.65;
@@ -311,7 +316,7 @@ body {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   color: var(--accent-gold);
   letter-spacing: 0.04em;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-shadow: 0 3px 12px rgba(40, 50, 30, 0.95), 0 1px 3px rgba(30, 38, 20, 0.95);
 }
 
@@ -389,6 +394,15 @@ body {
 
 .fern-watermark.acacia {
   background-image: url('img/acacia_single.png');
+}
+
+/* Mobile: keep only one leaf per section, smaller and subtler */
+.watermark-2,
+.watermark-3 {
+  display: none;
+}
+.watermark-1 {
+  opacity: 0.02;
 }
 
 /* Custom individual positions, rotations and mirroring for organic variety */
@@ -479,7 +493,7 @@ body {
 
 .section-header__title {
   font-family: var(--font-heading);
-  font-size: 2.2rem;
+  font-size: 1.85rem;
   color: var(--accent-sage-light);
   position: relative;
   display: inline-block;
@@ -509,6 +523,10 @@ body {
 .body-text em {
   font-style: italic;
   color: var(--accent-gold);
+}
+.body-text--needs-intro {
+  margin-top: 3rem;
+  margin-bottom: 0;
 }
 
 /* Pull quote */
@@ -552,18 +570,7 @@ body {
   user-select: none;
   pointer-events: none;
 }
-.pull-quote p {
-  font-family: var(--font-heading);
-  font-size: 1.2rem; /* Mobile default size */
-  line-height: 1.5;
-  background: linear-gradient(180deg, var(--accent-sage-light), var(--accent-sage), var(--accent-warm));
-  background-size: 100% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: var(--accent-sage);
-  animation: pull-quote-flow 16s ease-in-out infinite alternate;
-}
+
 
 /* Method badge */
 .method-tag {
@@ -661,7 +668,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.4rem;
-  padding: 1rem 0 1rem 1.5rem;
+  padding: 1rem 0 1rem 1.8rem;
   position: relative;
   transition: padding-left var(--transition-smooth);
 }
@@ -681,7 +688,7 @@ body {
   transform: scaleY(1);
 }
 .logistics-row:hover {
-  padding-left: 1.75rem;
+  padding-left: 2rem;
 }
 
 .logistics-row + .logistics-row {
@@ -698,7 +705,7 @@ body {
 
 .logistics-row__value {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--text-primary);
   line-height: 1.35;
 }
@@ -751,7 +758,7 @@ body {
   margin-bottom: 0.5rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
 }
 .callout-list li::before {
   content: '✓';
@@ -951,8 +958,11 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 25rem;
+  width: 100%;
+  max-width: 25rem;
   height: 4.5rem;
+  padding: 0 1.2rem;
+  box-sizing: border-box;
   text-decoration: none;
   color: var(--accent-gold);
   transition: color var(--transition-fast);
@@ -998,19 +1008,16 @@ body {
   filter: drop-shadow(0 0 18px rgba(201, 168, 108, 0.6));
 }
 
-.cta-handwritten-btn:hover .cta-handwritten-btn__path-active {
-  stroke-dashoffset: 0;
-  opacity: 1;
-  stroke: var(--accent-gold-light);
-}
+
 
 .cta-handwritten-btn__label {
   position: relative;
   z-index: 2;
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: 0.02em;
+  white-space: nowrap;
   transition: transform 0.3s var(--ease-spring);
 }
 .cta-handwritten-btn:hover .cta-handwritten-btn__label {
@@ -1073,9 +1080,19 @@ body {
     padding: 5rem 1.5rem;
   }
 
+  /* Restore all watermarks on larger screens */
+  .watermark-2,
+  .watermark-3 {
+    display: block;
+  }
+  .watermark-1 {
+    opacity: 0.03;
+  }
+
   .hero__info-badge {
     top: 2.5rem;
     font-size: 0.85rem;
+    letter-spacing: 0.12em;
   }
 
   .hero-orb {
@@ -1299,11 +1316,11 @@ body {
   }
 
   .cta-handwritten-btn {
-    width: 32rem;
+    max-width: 32rem;
     height: 5.5rem;
   }
   .cta-handwritten-btn__label {
-    font-size: 1.55rem;
+    font-size: 1.25rem;
   }
   .cta-handwritten-btn__arrow {
     font-size: 1.35rem;
@@ -1468,6 +1485,14 @@ body {
     font-size: 0.92rem;
     line-height: 1.7;
   }
+
+  .cta-handwritten-btn {
+    max-width: 28rem;
+    height: 5rem;
+  }
+  .cta-handwritten-btn__label {
+    font-size: 1.35rem;
+  }
 }
 
 
@@ -1571,5 +1596,21 @@ body {
 
   .cta__share {
     margin-top: 5rem;
+  }
+}
+
+/* ========================================================
+   ACCESSIBILITY: Reduced Motion
+   ======================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
 }
