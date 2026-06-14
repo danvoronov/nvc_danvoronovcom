@@ -818,13 +818,11 @@ body {
   border: 1px solid var(--border-subtle);
   display: block;
   margin: 0 auto;
-  opacity: 0.55;
-  filter: brightness(0.75);
+  opacity: 1;
+  filter: none;
   transition: all var(--transition-smooth);
 }
 .comics-image:hover {
-  opacity: 1;
-  filter: brightness(1);
   border-color: rgba(201, 168, 108, 0.25);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
@@ -844,13 +842,11 @@ body {
   border: 1px solid var(--border-subtle);
   margin-bottom: 1rem; /* Reduced bottom margin */
   display: block;
-  opacity: 0.55;
-  filter: brightness(0.75);
+  opacity: 1;
+  filter: none;
   transition: all var(--transition-smooth);
 }
 .facilitators-image:hover {
-  opacity: 1;
-  filter: brightness(1);
   border-color: rgba(201, 168, 108, 0.25);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
@@ -1495,6 +1491,25 @@ body {
   }
   .cta-handwritten-btn__label {
     font-size: 1.35rem;
+  }
+
+  /* Desktop-only dimming for comics and facilitators (touch/mobile/tablet stays fully visible) */
+  .comics-image {
+    opacity: 0.55;
+    filter: brightness(0.75);
+  }
+  .comics-image:hover {
+    opacity: 1;
+    filter: brightness(1);
+  }
+
+  .facilitators-image {
+    opacity: 0.55;
+    filter: brightness(0.75);
+  }
+  .facilitators-image:hover {
+    opacity: 1;
+    filter: brightness(1);
   }
 }
 
