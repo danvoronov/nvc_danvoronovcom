@@ -189,10 +189,13 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 7rem 0 3rem 0;
+  padding: 6rem 0 3rem 0;
   overflow: hidden;
-  background: linear-gradient(to bottom, rgba(19, 16, 12, 0.35), rgba(19, 16, 12, 0.65)), url('img/back.jpg') no-repeat center center;
-  background-size: cover;
+  background-color: #1a1610;
+  background-image: linear-gradient(to bottom, rgba(19, 16, 12, 0.35), rgba(19, 16, 12, 0.65)), url('img/back.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover, cover;
 }
 
 /* Animated gradient background */
