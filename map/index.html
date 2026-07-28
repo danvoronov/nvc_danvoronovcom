@@ -133,6 +133,21 @@ body {
   background: #e5e7eb;
 }
 
+.home-link {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 3;
+  color: #9ca3af;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.home-link:hover {
+  color: #6b7280;
+}
+
 .home-circumstances-label {
   position: absolute;
   top: 28px;
@@ -705,6 +720,7 @@ body {
   .ring-label { font-size: 10px; letter-spacing: 0.06em; }
   .ring-label.needs { font-size: 11px; }
   .home-circumstances-label { top: 16px; font-size: 11px; }
+  .home-link { top: 16px; left: 16px; font-size: 13px; }
 }
 </style>
 </head>
@@ -713,6 +729,7 @@ body {
 <!-- HOME / SCHEMA BACKGROUND -->
 <div id="home">
   <div class="home-wrap">
+    <a class="home-link" href="../">← На головну</a>
     <div class="home-circumstances-label">Обставини</div>
 
     <div class="rings" role="button" aria-label="Шари" onclick="handleRingsClick(event)">
