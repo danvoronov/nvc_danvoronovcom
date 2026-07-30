@@ -67,10 +67,142 @@
             margin-top: 15px;
             margin-bottom: 5px;
         }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            text-align: left;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #edf2f7;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        th:last-child {
+            border-right: none;
+            background-color: #fff3e6;
+            color: #2c3e50;
+        }
+
+        td:last-child {
+            border-right: none;
+            background-color: #fffcf8;
+        }
+
+        th {
+            background-color: #f7fafc;
+            color: #2c3e50;
+            font-weight: 600;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th:first-child,
+        td:first-child {
+            background-color: #2c3e50;
+            color: #ffffff;
+            font-weight: normal;
+            border-right: 1px solid #34495e;
+        }
+
+        tbody td:first-child {
+            border-bottom: 1px solid #34495e;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fbfcfd;
+        }
+
+        tr:nth-child(even) td:last-child {
+            background-color: #fff3e6;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Егоцентризм</th>
+                        <th>Симпатія</th>
+                        <th>Емпатія</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Визначення</td>
+                        <td>Зосередженість особистості на власних цілях, прагненнях і переживаннях</td>
+                        <td>Емоційна прихильність на основі спільних почуттів чи темпераменту. Здатність поділяти й реагувати на турботи чи почуття інших людей</td>
+                        <td>Емоційно-когнитивний резонанс на переживання іншої людини, здатність відчувати й розуміти чужий досвід і внутрішній світ </td>
+                    </tr>
+                    <tr>
+                        <td>Фокус уваги</td>
+                        <td>На собі — власних цілях і переживаннях</td>
+                        <td>На іншому схожему, але «ззовні», як спостерігач</td>
+                        <td>На іншому «зсередини» — спроба відчути те, що відчуває він</td>
+                    </tr>
+                    <tr>
+                        <td>Рівень ідентифікації з іншим</td>
+                        <td>Мінімальний або відсутній</td>
+                        <td>Середній (відчуття спільності, але з дистанцією)</td>
+                        <td>Високий (тимчасове «входження» в стан іншого зі збереженням розрізнення «я — інший»)</td>
+                    </tr>
+                    <tr>
+                        <td>Природа процесу</td>
+                        <td>Переважно когнітивна царина, багато в чому незалежна від особистісних рис людини</td>
+                        <td>Переважно емоційний відгук — занепокоєння чи прихильність, без обов'язкового глибокого розуміння</td>
+                        <td>Поєднує когнітивний (розуміння перспективи) і афективний (спільне переживання) компоненти</td>
+                    </tr>
+                    <tr>
+                        <td>Афективний (емоційний) компонент</td>
+                        <td>Фокус на власних емоціях</td>
+                        <td>Почуття жалю, турботи, співчуття (але не обов’язково ті самі емоції)</td>
+                        <td>Емоційна емпатія — розділення або резонанс з емоціями іншого</td>
+                    </tr>
+                    <tr>
+                        <td>Рівень емоційної дистанції</td>
+                        <td>Максимальна (фокус тільки на собі)</td>
+                        <td>Середня («я відчуваю за тебе»)</td>
+                        <td>Мінімальна («я відчуваю з тобою»), але зі збереженням меж</td>
+                    </tr>
+                    <tr>
+                        <td>Формула переживання</td>
+                        <td>«Все навколо — про мене»</td>
+                        <td>«Мені шкода за тебе» (feeling for)</td>
+                        <td>«Я відчуваю це разом із тобою» (feeling with)</td>
+                    </tr>
+                    <tr>
+                        <td>Зв'язок із поведінкою</td>
+                        <td>Здебільшого заважає бачити ситуації з точки зору іншого, роблячи людину нечутливою до чужих потреб</td>
+                        <td>Пов'язана з допомагаючою поведінкою та альтруїзмом</td>
+                        <td>Спонукає до щирої підтримки, що ґрунтуються на глибокому розумінні стану й потреб іншої людини</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
         <h1>Дослідження Емпатії</h1>
 
         <div class="section">
