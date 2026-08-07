@@ -666,9 +666,22 @@ body.crt-active::after {
     text-align: center;
 }
 
+.hero-date-banner {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    border-color: rgba(255, 136, 51, 0.4);
+    box-shadow: 0 0 8px rgba(255, 102, 0, 0.1);
+}
+
 .info-date {
     color: var(--orange-bright);
     font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.info-telegram {
+    color: var(--text-color);
     letter-spacing: 1px;
 }
 
@@ -1159,6 +1172,7 @@ body.crt-active::after {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: flex-start; /* one baseline for all badges */
         gap: 5px;
         padding: 20px 5px;
     }
@@ -1177,16 +1191,75 @@ body.crt-active::after {
 }
 
 @media (min-width: 768px) {
-    .step-node {
+    .timeline-horizontal > .step-node {
         min-width: 75px;
         transform: rotate(-2deg);
     }
-    .step-node:nth-child(even) {
-        transform: rotate(2deg) translateY(8px);
+    .timeline-horizontal > .step-node:nth-of-type(even) {
+        transform: rotate(2deg);
     }
-    .step-node:hover {
+    .timeline-horizontal > .step-node:hover {
         transform: rotate(0deg) scale(1.08);
     }
+}
+
+/* Parallel fork: same step 04, two alternative paths */
+.step-parallel {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 6px;
+    flex-shrink: 0;
+    padding: 10px 10px 6px;
+    /* outline doesn't shift layout — badges stay on the common line */
+    outline: 1px dashed rgba(255, 102, 0, 0.45);
+    outline-offset: 6px;
+    background: rgba(255, 102, 0, 0.12);
+    position: relative;
+}
+
+.step-parallel .step-node {
+    min-width: 0;
+    flex: 1 1 0;
+}
+
+@media (min-width: 768px) {
+    .step-parallel {
+        grid-column: auto;
+        gap: 4px;
+        /* negative margin keeps badges on the common line;
+           padding-top + outline give air above the squares */
+        margin-top: -10px;
+        padding: 10px 8px 4px;
+        outline-offset: 8px;
+    }
+    .step-parallel .step-node {
+        min-width: 75px;
+        flex: 0 0 auto;
+        transform: rotate(-2deg);
+    }
+    .step-parallel .step-node:last-of-type {
+        transform: rotate(2deg);
+    }
+    .step-parallel .step-node:hover {
+        transform: rotate(0deg) scale(1.08);
+    }
+}
+
+.step-or {
+    font-family: var(--font-heading);
+    font-size: 0.45rem;
+    color: var(--orange-dim);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    flex-shrink: 0;
+    padding: 0 2px;
+    align-self: flex-start;
+    margin-top: 18px; /* middle of badge row */
+    line-height: 1;
 }
 
 .step-badge {
@@ -1210,14 +1283,14 @@ body.crt-active::after {
 }
 
 .step-node[data-step="1"] .step-badge,
-.step-node[data-step="6"] .step-badge {
+.step-node[data-step="5"] .step-badge {
     background-color: rgba(255, 102, 0, 0.12);
     color: var(--orange-dim);
     border-color: rgba(255, 102, 0, 0.3);
 }
 
 .step-node[data-step="1"]:hover .step-badge,
-.step-node[data-step="6"]:hover .step-badge {
+.step-node[data-step="5"]:hover .step-badge {
     background-color: var(--orange-dim);
     color: var(--bg-darker);
     border-color: var(--orange-primary);
@@ -1250,8 +1323,8 @@ body.crt-active::after {
     flex-shrink: 0;
     height: 2px;
     background: linear-gradient(90deg, var(--orange-dim), var(--orange-primary));
-    align-self: center;
-    margin-bottom: 26px;
+    align-self: flex-start;
+    margin-top: 27px; /* center of 46px badge + padding */
 }
 
 @media (min-width: 768px) {

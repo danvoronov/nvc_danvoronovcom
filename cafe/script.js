@@ -50,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "РАДІСТЬ & ЖИВЕ",
             text: "І можна приходити з хорошим: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям живості, бажанням поділитися тим, що вийшло, або просто побути серед людей, де не треба стискатися, захищатися чи доводити право на свій досвід.",
             effect: "Насичує життєвою енергією, підсилює відчуття спільності та безпеки."
+        },
+        work: {
+            title: "ГРОШІ & РОБОТА",
+            text: "Можна приходити з питаннями фінансів, кар'єри, вигорання, пошуку власної справи, викликами на роботі, стосунками з колегами чи керівництвом, синдромом самозванця, страхом змін або фінансової нестабільності.",
+            effect: "Допомагає знайти опору, знизити тривожність щодо ресурсів і переосмислити свої професійні цінності."
         }
     };
 
@@ -508,8 +513,11 @@ document.addEventListener('DOMContentLoaded', () => {
             statusIndicator.className = 'status-indicator online blinking';
             meetBtn.removeAttribute('disabled');
             meetBtn.classList.remove('disabled');
+            if (calendarBtn) calendarBtn.style.display = 'none';
             return;
         }
+
+        if (calendarBtn) calendarBtn.style.display = '';
 
         const diffMs = nextEvent.getTime() - now.getTime();
         if (diffMs > 0) {
@@ -522,9 +530,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (hours > 0) countdown += `${hours}г `;
             countdown += `${mins}хв`;
 
-            statusText.innerHTML = `<span class="status-word status-offline">OFFLINE</span><span class="status-detail"> — ${countdown} до наступної зустрічі</span>`;
+            statusText.innerHTML = `<span class="status-word status-offline">ЧЕКАЄМО</span><span class="status-detail"> — ${countdown} до наступної зустрічі</span>`;
         } else {
-            statusText.innerHTML = '<span class="status-word status-offline">OFFLINE</span>';
+            statusText.innerHTML = '<span class="status-word status-offline">ЧЕКАЄМО</span>';
         }
         statusIndicator.className = 'status-indicator offline';
         meetBtn.setAttribute('disabled', 'disabled');

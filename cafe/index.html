@@ -59,21 +59,65 @@
                     <h2>ЗАРАЗ: <span id="status-text"><span class="status-word status-online">ONLINE</span></span></h2>
                 </div>
                 <div class="card-content text-center">
+                    <div class="hero-info-item info-date hero-date-banner">СТАРТ, 19:20 (КИЇВСЬКИЙ ЧАС)</div>
                     <p class="promo-text">ЗАХОДЬ НА ЕМПАТІЮ</p>
                     <p class="highlight-text">
                         Можна підключатися не з початку й не до кінця, камера — за бажанням
                     </p>
                     <div class="action-zone">
-                        <a href="https://meet.google.com/rwm-zzjr-bre" target="_blank" id="meet-btn" class="pixel-btn primary">
-                            <span class="btn-text">ВІДКРИТИ GOOGLE MEET</span>
-                        </a>
                         <button id="calendar-btn" class="pixel-btn secondary">
                             <span class="btn-text">ДОДАТИ В КАЛЕНДАР</span>
                         </button>
+                        <a href="https://meet.google.com/rwm-zzjr-bre" target="_blank" id="meet-btn" class="pixel-btn primary">
+                            <span class="btn-text">ВІДКРИТИ ЗУСТРІЧ</span>
+                        </a>
                     </div>
                     <div class="hero-info-row">
-                        <div class="hero-info-item info-date">СТАРТ, 19:20 (КИЇВСЬКИЙ ЧАС)</div>
-                        <div class="hero-info-item info-cost">ВАРТІСТЬ: БУДЬ-ЯКИЙ <a href="https://send.monobank.ua/jar/AcHyfrdhrq" target="_blank" class="donate-link">MONO ДОНАТ</a> ВІТАЄТЬСЯ</div>
+                        <div class="hero-info-item info-telegram">💬 ЧАТ У ТЕЛЕГРАМ: <a href="https://t.me/adulttalkcafe" target="_blank" class="donate-link">@adulttalkcafe</a></div>
+                        <div class="hero-info-item info-cost">💸 ВАРТІСТЬ: БУДЬ-ЯКИЙ <a href="https://send.monobank.ua/jar/AcHyfrdhrq" target="_blank" class="donate-link">MONO ДОНАТ</a> ВІТАЄТЬСЯ</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quest Flow / How it goes -->
+            <section class="retro-card full-width" id="flow">
+                <div class="card-header">
+                    <h2>⌚ ЯК ПРОХОДИТЬ</h2>
+                </div>
+                <div class="card-content">
+                    <p class="desc-text">Зустріч триває <strong>2 години</strong> у груповому дзвінку Google Meet:</p>
+                    <div class="timeline-horizontal">
+                        <div class="step-node" data-step="1" data-desc="На початку короткий чек-ін: як ви сьогодні, з чим прийшли">
+                            <div class="step-badge">01</div>
+                            <div class="step-name">Чек-ін</div>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="step-node" data-step="2" data-desc="Від фасилітаторів кілька слів про базу емпатійного слухання, я-висловлювання тощо">
+                            <div class="step-badge">02</div>
+                            <div class="step-name">Про формат</div>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="step-node" data-step="3" data-desc="У бажаючих є свій час, щоб поділитися важливим">
+                            <div class="step-badge">03</div>
+                            <div class="step-name">Власний час</div>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="step-parallel" aria-label="Крок 04: два паралельні варіанти">
+                            <div class="step-node" data-step="4" data-desc="Говорити не обов'язково: можна просто бути присутніми і слухати когось">
+                                <div class="step-badge">04</div>
+                                <div class="step-name">Вільне слухання</div>
+                            </div>
+                            <div class="step-or" aria-hidden="true">або</div>
+                            <div class="step-node" data-step="4" data-desc="Є варіант, коли всі мовчать, якщо ресурсу говорити немає — це теж нормально">
+                                <div class="step-badge">04</div>
+                                <div class="step-name">Тиша</div>
+                            </div>
+                        </div>
+                        <div class="step-connector"></div>
+                        <div class="step-node" data-step="5" data-desc="Наприкінці короткий чек-аут: як вам було і з чим йдете">
+                            <div class="step-badge">05</div>
+                            <div class="step-name">Чек-аут</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -113,49 +157,76 @@
                     <div class="about-block-benefit">
                         Після емпатійного кафе залишається відчуття, що стало легше розібратися в тому, що з тобою відбувається, складні переживання стають трохи менш самотніми, а радісні та живі підсилюються.
                     </div>
-                </div>
+                </div>            
             </section>
 
-            <!-- Quest Flow / How it goes -->
-            <section class="retro-card full-width" id="flow">
+            <!-- Inventory Section (With what you can come) -->
+            <section class="retro-card full-width" id="inventory-section">
                 <div class="card-header">
-                    <h2>⌚ ЯК ПРОХОДИТЬ</h2>
+                    <h2>🎁 ЧИМ МОЖНА ПОДІЛИТИСЯ (НАПРИКЛАД)</h2>
                 </div>
-                <div class="card-content">
-                    <p class="desc-text">Зустріч триває <strong>2 години</strong> у груповому дзвінку Google Meet:</p>
-                    <div class="timeline-horizontal">
-                        <div class="step-node" data-step="1" data-desc="На початку короткий чек-ін: як ви та що живе у вас зараз">
-                            <div class="step-badge">01</div>
-                            <div class="step-name">Чек-ін</div>
+                <div class="card-content inventory-layout">
+                    <p class="inventory-intro">
+                        Оберіть, щоб дізнатися деталі:
+                    </p>
+                    <div class="inventory-container">
+                        
+                        <!-- Grid of Slots -->
+                        <div class="inventory-grid" id="inventory-grid" role="tablist">
+                            <button class="inventory-slot" data-item="relations" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 2: Стосунки та Поліаморія">
+                                <span class="slot-num">⊹</span>
+                                <span class="slot-icon">💖</span>
+                                <span class="slot-title">БЛИЗКІСТЬ &amp; СТОСУНКИ</span>
+                            </button>
+                            <button class="inventory-slot" data-item="intimacy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 3: Близькість та Ідентичність">
+                                <span class="slot-num">⊹</span>
+                                <span class="slot-icon">🍓</span>
+                                <span class="slot-title">СЕКС &amp; БАЖАННЯ</span>
+                            </button>
+                            <button class="inventory-slot slot-full active" data-item="joy" role="tab" aria-selected="true" aria-controls="item-desc-panel" aria-label="Слот 1: Радість та Живе">
+                                <span class="slot-num">⊹</span>
+                                <span class="slot-icon">🎉</span>
+                                <span class="slot-title">РАДІСТЬ &amp; ЖИВЕ</span>
+                            </button>                            
+                            <button class="inventory-slot" data-item="heavy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 4: Важке та Заплутане">
+                                <span class="slot-num">⊹</span>
+                                <span class="slot-icon">🏋️</span>
+                                <span class="slot-title">ВАЖКЕ &amp; СКЛАДНЕ</span>
+                            </button>
+                            <button class="inventory-slot" data-item="small" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 5: Дрібниці життя">
+                                <span class="slot-num">⊹</span>
+                                <span class="slot-icon">🤔</span>
+                                <span class="slot-title">ДРІБНИЦІ ЖИТТЯ</span>
+                            </button>
                         </div>
-                        <div class="step-connector"></div>
-                        <div class="step-node" data-step="2" data-desc="Від фасилітаторів кілька слів про базу емпатійного слухання, я-висловлювання тощо">
-                            <div class="step-badge">02</div>
-                            <div class="step-name">Про формат</div>
+
+                        <!-- Description Panel -->
+                        <div class="item-description-panel" id="item-desc-panel">
+                            <div class="panel-header">
+                                <h3 class="item-title-active" id="item-title">РАДІСТЬ &amp; ЖИВЕ</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p class="item-text-active" id="item-text-primary">
+                                    Точно можна приходити з тим, що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.
+                                </p>
+                                <p class="item-text" data-item="heavy">З будь-чим важким, заплутаним, незручним, дрібним, соромітним, невисловленим. Коли фонове відчуття “зі мною щось не так”, складність попросити про підтримку, неможливість сказати “ні”, втома весь час пояснювати себе іншим.</p>
+                                <p class="item-text" data-item="intimacy">Тут простір прийняття квірного, кінк, поліаморного, немоногамного досвіду — і водночас дуже звичайних людських інтимних переживань, знайомих багатьом. Про сексуальність, згоду, турботу, ревнощі, прив'язаність, чесність, свободу, конфлікти, відновлення після болісного досвіду, сором говорити про секс, кінк чи фантазії.</p>
+                                <p class="item-text" data-item="relations">Можна приходити з темами про близькість, довіру, дистанцію, з досвідом моногамних і немоногамних стосунків, труднощами у поліаморних конфігураціях, переживаннями через NRE (нову енергію стосунків), болем від ієрархій або нечітких ролей, складністю витримувати процеси партнерів/-ок, страхом осуду за свою ідентичність.</p>
+                                <p class="item-text" data-item="small">Навіть із тим, що “ніби не така вже й проблема”, але чомусь не відпускає. Можна приходити і з тим, що наче “дрібниця”: незручна розмова, дивний осад після побачення, повідомлення без відповіді, накопичене роздратування, внутрішній ступор.</p>
+                                <p class="item-text" data-item="joy">Точно можна приходити з тим, що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.</p>
+                            </div>
                         </div>
-                        <div class="step-connector"></div>
-                        <div class="step-node" data-step="3" data-desc="У вас за бажанням є свій час, щоб поділитися важливим">
-                            <div class="step-badge">03</div>
-                            <div class="step-name">Власний час</div>
-                        </div>
-                        <div class="step-connector"></div>
-                        <div class="step-node" data-step="4" data-desc="Говорити не обов'язково: можна просто бути присутніми і слухати.">
-                            <div class="step-badge">04</div>
-                            <div class="step-name">Вільне слухання</div>
-                        </div>
-                        <div class="step-connector"></div>
-                        <div class="step-node" data-step="5" data-desc="Є варіант, коли ВСІ мовчать, якщо не хочуть говорити — це теж нормально">
-                            <div class="step-badge">05</div>
-                            <div class="step-name">Тиша</div>
-                        </div>
-                        <div class="step-connector"></div>
-                        <div class="step-node" data-step="6" data-desc="Наприкінці короткий чек-аут: як вам було і з чим йдете">
-                            <div class="step-badge">06</div>
-                            <div class="step-name">Чек-аут</div>
+                        <div class="item-titles-hidden">
+                            <h3 class="item-title" data-item="relations">БЛИЗЬКІСТЬ &amp; СТОСУНКИ</h3>
+                            <h3 class="item-title" data-item="intimacy">СЕКС &amp; БАЖАННЯ</h3>
+                            <h3 class="item-title" data-item="heavy">ВАЖКЕ &amp; СКЛАДНЕ</h3>
+                            <h3 class="item-title" data-item="small">ДРІБНИЦІ ЖИТТЯ</h3>
+                            <h3 class="item-title" data-item="joy">РАДІСТЬ &amp; ЖИВЕ</h3>
                         </div>
                     </div>
                 </div>
             </section>
+
 
             <!-- Rules Section (with sug.png) -->
             <section class="retro-card full-width" id="rules">
@@ -271,73 +342,6 @@
                                 </div>                                
                    
                             </div>                            
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Inventory Section (With what you can come) -->
-            <section class="retro-card full-width" id="inventory-section">
-                <div class="card-header">
-                    <h2>🎁 ЧИМ ДІЛИТИСЯ (НАПРИКЛАД)</h2>
-                </div>
-                <div class="card-content inventory-layout">
-                    <p class="inventory-intro">
-                        Оберіть слот, щоб дізнатися деталі:
-                    </p>
-                    <div class="inventory-container">
-                        
-                        <!-- Grid of Slots -->
-                        <div class="inventory-grid" id="inventory-grid" role="tablist">
-                            <button class="inventory-slot" data-item="relations" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 2: Стосунки та Поліаморія">
-                                <span class="slot-num">⊹</span>
-                                <span class="slot-icon">💖</span>
-                                <span class="slot-title">БЛИЗКІСТЬ &amp; СТОСУНКИ</span>
-                            </button>
-                            <button class="inventory-slot" data-item="intimacy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 3: Близькість та Ідентичність">
-                                <span class="slot-num">⊹</span>
-                                <span class="slot-icon">🍓</span>
-                                <span class="slot-title">СЕКС &amp; БАЖАННЯ</span>
-                            </button>
-                            <button class="inventory-slot slot-full active" data-item="joy" role="tab" aria-selected="true" aria-controls="item-desc-panel" aria-label="Слот 1: Радість та Живе">
-                                <span class="slot-num">⊹</span>
-                                <span class="slot-icon">🎉</span>
-                                <span class="slot-title">РАДІСТЬ &amp; ЖИВЕ</span>
-                            </button>                            
-                            <button class="inventory-slot" data-item="heavy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 4: Важке та Заплутане">
-                                <span class="slot-num">⊹</span>
-                                <span class="slot-icon">🏋️</span>
-                                <span class="slot-title">ВАЖКЕ &amp; СКЛАДНЕ</span>
-                            </button>
-                            <button class="inventory-slot" data-item="small" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 5: Дрібниці життя">
-                                <span class="slot-num">⊹</span>
-                                <span class="slot-icon">🤔</span>
-                                <span class="slot-title">ДРІБНИЦІ ЖИТТЯ</span>
-                            </button>
-                        </div>
-
-                        <!-- Description Panel -->
-                        <div class="item-description-panel" id="item-desc-panel">
-                            <div class="panel-header">
-                                <h3 class="item-title-active" id="item-title">РАДІСТЬ &amp; ЖИВЕ</h3>
-                            </div>
-                            <div class="panel-body">
-                                <p class="item-text-active" id="item-text-primary">
-                                    Точно можна приходити з тим, що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.
-                                </p>
-                                <p class="item-text" data-item="heavy">З будь-чим важким, заплутаним, незручним, дрібним, соромітним, невисловленим. Коли фонове відчуття “зі мною щось не так”, складність попросити про підтримку, неможливість сказати “ні”, втома весь час пояснювати себе іншим.</p>
-                                <p class="item-text" data-item="intimacy">Тут простір прийняття квірного, кінк, поліаморного, немоногамного досвіду — і водночас дуже звичайних людських інтимних переживань, знайомих багатьом. Про сексуальність, згоду, турботу, ревнощі, прив'язаність, чесність, свободу, конфлікти, відновлення після болісного досвіду, сором говорити про секс, кінк чи фантазії.</p>
-                                <p class="item-text" data-item="relations">Можна приходити з темами про близькість, довіру, дистанцію, з досвідом моногамних і немоногамних стосунків, труднощами у поліаморних конфігураціях, переживаннями через NRE (нову енергію стосунків), болем від ієрархій або нечітких ролей, складністю витримувати процеси партнерів/-ок, страхом осуду за свою ідентичність.</p>
-                                <p class="item-text" data-item="small">Навіть із тим, що “ніби не така вже й проблема”, але чомусь не відпускає. Можна приходити і з тим, що наче “дрібниця”: незручна розмова, дивний осад після побачення, повідомлення без відповіді, накопичене роздратування, внутрішній ступор.</p>
-                                <p class="item-text" data-item="joy">Точно можна приходити з тим, що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.</p>
-                            </div>
-                        </div>
-                        <div class="item-titles-hidden">
-                            <h3 class="item-title" data-item="relations">БЛИЗЬКІСТЬ &amp; СТОСУНКИ</h3>
-                            <h3 class="item-title" data-item="intimacy">СЕКС &amp; БАЖАННЯ</h3>
-                            <h3 class="item-title" data-item="heavy">ВАЖКЕ &amp; СКЛАДНЕ</h3>
-                            <h3 class="item-title" data-item="small">ДРІБНИЦІ ЖИТТЯ</h3>
-                            <h3 class="item-title" data-item="joy">РАДІСТЬ &amp; ЖИВЕ</h3>
                         </div>
                     </div>
                 </div>
