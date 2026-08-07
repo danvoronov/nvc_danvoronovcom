@@ -64,7 +64,7 @@ html, body {
     color: var(--text-color);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: clip;
     scroll-behavior: smooth;
     font-size: 16px;
 }
@@ -248,7 +248,9 @@ body.crt-active::after {
     background-color: var(--bg-color);
     padding: 18px 14px; /* Mobile base */
     margin-bottom: 15px;
-    position: relative;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
     box-shadow: 0 0 8px rgba(255, 102, 0, 0.1);
     border-radius: 6px;
 }
@@ -260,6 +262,7 @@ body.crt-active::after {
         align-items: center;
         text-align: left;
         padding: 20px;
+        top: 15px;
     }
 }
 
