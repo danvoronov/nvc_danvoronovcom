@@ -34,14 +34,8 @@
             </div>
             
             <div class="controls-panel">
-                <div class="control-item">
-                    <span class="control-label">CRT ФІЛЬТР</span>
-                    <button id="crt-toggle" class="retro-btn active" aria-label="Перемкнути CRT фільтр">ON</button>
-                </div>
-                <div class="control-item">
-                    <span class="control-label">ЗВУК</span>
-                    <button id="sound-toggle" class="retro-btn active" aria-label="Перемкнути звук">ON</button>
-                </div>
+                <button id="crt-toggle" class="retro-btn active" aria-label="Перемкнути CRT фільтр" aria-pressed="true">CRT</button>
+                <button id="sound-toggle" class="retro-btn active" aria-label="Перемкнути звук" aria-pressed="true">ЗВУК</button>
             </div>
         </header>
 
@@ -68,7 +62,7 @@
                         <button id="calendar-btn" class="pixel-btn secondary">
                             <span class="btn-text">ДОДАТИ В КАЛЕНДАР</span>
                         </button>
-                        <a href="https://meet.google.com/rwm-zzjr-bre" target="_blank" id="meet-btn" class="pixel-btn primary">
+                        <a data-href="https://meet.google.com/rwm-zzjr-bre" target="_blank" rel="noopener noreferrer" id="meet-btn" class="pixel-btn primary disabled" aria-disabled="true" tabindex="-1">
                             <span class="btn-text">ВІДКРИТИ ЗУСТРІЧ</span>
                         </a>
                     </div>
@@ -125,6 +119,19 @@
             <section class="hero-image-section">
                 <div class="hero-image-wrap">
                     <img src="weare.jpg" alt="Ми — Емпатійне Кафе" class="hero-image">
+                    <button type="button" class="organizer-hover-zone organizer-hover-zone--left">
+                        <span class="organizer-hover-label">
+                            <strong>Кирило,</strong>
+                            фасилітатор емпатії,
+                            випускник Empathy Ukraine 2024 року.
+                        </span>
+                    </button>
+                    <button type="button" class="organizer-hover-zone organizer-hover-zone--right">
+                        <span class="organizer-hover-label">
+                            <strong>Дан Воронов,</strong>
+                            фасилітатор емпатії, випускник Empathy Ukraine 2026 року.
+                        </span>
+                    </button>
                 </div>
             </section>
 
@@ -163,42 +170,42 @@
             <!-- Inventory Section (With what you can come) -->
             <section class="retro-card full-width" id="inventory-section">
                 <div class="card-header">
-                    <h2>🎁 ЧИМ МОЖНА ПОДІЛИТИСЯ (НАПРИКЛАД)</h2>
+                    <h2>🫶 ЩИРО РОЗПОВІСТИ</h2>
                 </div>
                 <div class="card-content inventory-layout">
                     <p class="inventory-intro">
-                        Оберіть, щоб дізнатися деталі:
+                        Наприклад, про що можете поділитися:
                     </p>
                     <div class="inventory-container">
                         
                         <!-- Grid of Slots -->
-                        <div class="inventory-grid" id="inventory-grid" role="tablist">
-                            <button class="inventory-slot" data-item="relations" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 2: Стосунки та Поліаморія">
+                        <div class="inventory-grid" id="inventory-grid" role="tablist" aria-label="Теми, якими можна поділитися">
+                            <button id="inventory-tab-relations" class="inventory-slot" data-item="relations" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 2: Стосунки та Поліаморія" tabindex="-1">
                                 <span class="slot-num">⊹</span>
                                 <span class="slot-icon">💖</span>
                                 <span class="slot-title">БЛИЗКІСТЬ &amp; СТОСУНКИ</span>
                             </button>
-                            <button class="inventory-slot" data-item="intimacy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 3: Близькість та Ідентичність">
+                            <button id="inventory-tab-intimacy" class="inventory-slot" data-item="intimacy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 3: Близькість та Ідентичність" tabindex="-1">
                                 <span class="slot-num">⊹</span>
                                 <span class="slot-icon">🍓</span>
                                 <span class="slot-title">СЕКС &amp; БАЖАННЯ</span>
                             </button>
-                            <button class="inventory-slot active" data-item="joy" role="tab" aria-selected="true" aria-controls="item-desc-panel" aria-label="Слот 1: Радість та Живе">
+                            <button id="inventory-tab-joy" class="inventory-slot active" data-item="joy" role="tab" aria-selected="true" aria-controls="item-desc-panel" aria-label="Слот 1: Радість та Живе" tabindex="0">
                                 <span class="slot-num">⊹</span>
                                 <span class="slot-icon">🎉</span>
                                 <span class="slot-title">РАДІСТЬ &amp; ЖИВЕ</span>
                             </button>
-                            <button class="inventory-slot" data-item="small" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 5: Дрібниці життя">
+                            <button id="inventory-tab-small" class="inventory-slot" data-item="small" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 5: Дрібниці життя" tabindex="-1">
                                 <span class="slot-num">⊹</span>
                                 <span class="slot-icon">🤔</span>
                                 <span class="slot-title">ДРІБНИЦІ ЖИТТЯ</span>
                             </button>
-                            <button class="inventory-slot" data-item="heavy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 4: Важке та Заплутане">
+                            <button id="inventory-tab-heavy" class="inventory-slot" data-item="heavy" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 4: Важке та Заплутане" tabindex="-1">
                                 <span class="slot-num">⊹</span>
                                 <span class="slot-icon">🏋️</span>
                                 <span class="slot-title">ВАЖКЕ &amp; СКЛАДНЕ</span>
                             </button>
-                            <button class="inventory-slot" data-item="work" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 6: Гроші та Робота">
+                            <button id="inventory-tab-work" class="inventory-slot" data-item="work" role="tab" aria-selected="false" aria-controls="item-desc-panel" aria-label="Слот 6: Гроші та Робота" tabindex="-1">
                                 <span class="slot-num">⊹</span>
                                 <span class="slot-icon">💼</span>
                                 <span class="slot-title">ГРОШІ &amp; РОБОТА</span>
@@ -206,31 +213,19 @@
                         </div>
 
                         <!-- Description Panel -->
-                        <div class="item-description-panel" id="item-desc-panel">
+                        <div class="item-description-panel" id="item-desc-panel" role="tabpanel" aria-live="polite" aria-labelledby="inventory-tab-joy" tabindex="0">
                             <div class="panel-header">
-                                <h3 class="item-title-active" id="item-title">РАДІСТЬ &amp; ЖИВЕ</h3>
+                                <h3 id="item-title">РАДІСТЬ &amp; ЖИВЕ</h3>
                             </div>
                             <div class="panel-body">
-                                <p class="item-text-active" id="item-text-primary">
-                                    Точно можна приходити з тим, що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.
-                                </p>
                                 <p class="item-text" data-item="heavy">З будь-чим важким, заплутаним, незручним, дрібним, соромітним, невисловленим. Коли фонове відчуття “зі мною щось не так”, складність попросити про підтримку, неможливість сказати “ні”, втома весь час пояснювати себе іншим.</p>
                                 <p class="item-text" data-item="intimacy">Тут простір прийняття квірного, кінк, поліаморного, немоногамного досвіду — і водночас дуже звичайних людських інтимних переживань, знайомих багатьом. Про сексуальність, згоду, турботу, ревнощі, прив'язаність, чесність, свободу, конфлікти, відновлення після болісного досвіду, сором говорити про секс, кінк чи фантазії.</p>
                                 <p class="item-text" data-item="relations">Можна приходити з темами про близькість, довіру, дистанцію, з досвідом моногамних і немоногамних стосунків, труднощами у поліаморних конфігураціях, переживаннями через NRE (нову енергію стосунків), болем від ієрархій або нечітких ролей, складністю витримувати процеси партнерів/-ок, страхом осуду за свою ідентичність.</p>
-                                <p class="item-text" data-item="small">Навіть із тим, що “ніби не така вже й проблема”, але чомусь не відпускає. Можна приходити і з тим, що наче “дрібниця”: незручна розмова, дивний осад після бачення, повідомлення без відповіді, накопичене роздратування, внутрішній ступор.</p>
-                                <p class="item-text" data-item="joy">Точно можна приходити з тим, що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.</p>
-                                <p class="item-text" data-item="work">Можна приходити з тривогою щодо питань грощей, кар'єри, вигорання, пошуку власної справи, викликами на роботі, синдромом самозванця, страхом змін або фінансової нестабільності.</p>
+                                <p class="item-text" data-item="small">Навіть із тим, що “ніби не така вже й проблема”, але чомусь не відпускає. Можна приходити і з тим, що наче “дрібниця”: незручна розмова, дивний осад після побачення, повідомлення без відповіді, накопичене роздратування, внутрішній ступор.</p>
+                                <p class="item-text active" data-item="joy">Точно можна приходити з тим, що у вас живе зараз: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям краси, бажанням поділитися тим, що вийшло.</p>
+                                <p class="item-text" data-item="work">Можна приходити з тривогою щодо питань грошей, кар'єри, вигорання, пошуку власної справи, викликами на роботі, синдромом самозванця, страхом змін або фінансової нестабільності.</p>
                             </div>
                         </div>
-                        <div class="item-titles-hidden">
-                            <h3 class="item-title" data-item="relations">БЛИЗЬКІСТЬ &amp; СТОСУНКИ</h3>
-                            <h3 class="item-title" data-item="intimacy">СЕКС &amp; БАЖАННЯ</h3>
-                            <h3 class="item-title" data-item="heavy">ВАЖКЕ &amp; СКЛАДНЕ</h3>
-                            <h3 class="item-title" data-item="small">ДРІБНИЦІ ЖИТТЯ</h3>
-                            <h3 class="item-title" data-item="joy">РАДІСТЬ &amp; ЖИВЕ</h3>
-                            <h3 class="item-title" data-item="work">ГРОШІ &amp; РОБОТА</h3>
-                        </div>
-
                 </div>
             </section>
 
@@ -365,7 +360,7 @@
                     <p class="desc-text">Запрошуємо побути серед людей, де не треба стискатися, захищатися чи доводити право на свій досвід. Не потрібно бути “достатньо досвідченими”, “достатньо правильними” чи приходити з ідеально сформульованим запитом. </p>
                     <div class="action-zone" style="margin-top:20px">
                         <a href="https://t.me/adulttalkcafe" target="_blank" class="pixel-btn primary">
-                            <span class="btn-text">ЧАТ У ТЕЛЕГРАМ</span>
+                            <span class="btn-text">💬 ЧАТ У ТЕЛЕГРАМ</span>
                         </a>
                     </div>
                     <br/>
@@ -377,16 +372,9 @@
 
         <!-- Footer -->
         <footer class="retro-footer text-center">
-            <p>© 2026 ЕМПАТІЙНЕ КАФЕ для дорослих розмов. </p>
+            <p>© 2026, Дан Воронов, ЕМПАТІЙНЕ КАФЕ для дорослих розмов. </p>
         </footer>
 
-    </div>
-
-    <!-- Hidden alert box for link copied -->
-    <div id="retro-alert" class="retro-alert-box hidden">
-        <span class="alert-border-t"></span>
-        <p id="alert-msg">LINK COPIED TO CLIPBOARD!</p>
-        <span class="alert-border-b"></span>
     </div>
 
     <!-- Global tooltip for timeline -->
@@ -398,6 +386,8 @@
     </div>
 
     <script src="dates.js"></script>
+    <script src="schedule.js"></script>
     <script src="script.js"></script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="41dd411d-234d-4eae-b541-1103fd71b6ad"></script>
 </body>
 </html>

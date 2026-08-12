@@ -17,46 +17,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const meetBtn = document.getElementById('meet-btn');
     const calendarBtn = document.getElementById('calendar-btn');
     
-    const inventoryGrid = document.getElementById('inventory-grid');
     const inventorySlots = document.querySelectorAll('.inventory-slot');
     const itemTitle = document.getElementById('item-title');
-    const itemTextPrimary = document.getElementById('item-text-primary');
     const itemTexts = document.querySelectorAll('.item-text');
-    const itemTitles = document.querySelectorAll('.item-title');
-
-    // --- RPG Inventory Data ---
-    const inventoryData = {
-        heavy: {
-            title: "ВАЖКЕ & СКЛАДНЕ",
-            text: "З будь-чим: важким, заплутаним, незручним, радісним, дрібним, соромітним, невисловленим. Навіть із тим, що “ніби не така вже й проблема”, але чомусь не відпускає.",
-            effect: "Тут не потрібно бути “достатньо досвідченими”, “достатньо правильними” чи приходити з ідеально сформульованим запитом."
-        },
-        intimacy: {
-            title: "БЛИЗЬКІСТЬ & СЕКС",
-            text: "Це простір прийняття квірного, кінк, поліаморного, немоногамного досвіду — і водночас дуже звичайних людських переживань, знайомих багатьом. Можна приходити з темами про близькість, довіру, дистанцію, сексуальність, згоду, турботу, ревнощі, прив’язаність, чесність, свободу, конфлікти, відновлення після болісного досвіду.",
-            effect: "Допомагає шукати свої слова для складних розмов, розвивати вміння чути себе і потребу бути почутими без оцінок та порад."
-        },
-        relations: {
-            title: "СТОСУНКИ & ПОЛІ",
-            text: "Можна приходити з досвідом моногамних і немоногамних стосунків, труднощами у поліаморних конфігураціях, переживаннями через NRE (нову енергію стосунків), болем від ієрархій або нечітких ролей, складністю витримувати процеси партнерів/-ок, соромом говорити про секс, кінк чи фантазії, страхом осуду за свою ідентичність.",
-            effect: "Знижує рівень тривоги та сорому за свій унікальний формат стосунків та проживання близькості."
-        },
-        small: {
-            title: "ДРІБНИЦІ ЖИТТЯ",
-            text: "Можна приходити і з тим, що наче “дрібниця”: незручна розмова, дивний осад після побачення, повідомлення без відповіді, невдалий жарт, накопичене роздратування, внутрішній ступор, фонове відчуття “зі мною щось не так”, складність попросити про підтримку, неможливість сказати “ні”, втома весь час пояснювати себе іншим.",
-            effect: "Перетворює дрібні фонові подразники на ясність та емоційне полегшення."
-        },
-        joy: {
-            title: "РАДІСТЬ & ЖИВЕ",
-            text: "І можна приходити з хорошим: радістю, полегшенням, ніжністю, вдячністю, закоханістю, відчуттям живості, бажанням поділитися тим, що вийшло, або просто побути серед людей, де не треба стискатися, захищатися чи доводити право на свій досвід.",
-            effect: "Насичує життєвою енергією, підсилює відчуття спільності та безпеки."
-        },
-        work: {
-            title: "ГРОШІ & РОБОТА",
-            text: "Можна приходити з питаннями фінансів, кар'єри, вигорання, пошуку власної справи, викликами на роботі, стосунками з колегами чи керівництвом, синдромом самозванця, страхом змін або фінансової нестабільності.",
-            effect: "Допомагає знайти опору, знизити тривожність щодо ресурсів і переосмислити свої професійні цінності."
-        }
-    };
+    const itemPanel = document.getElementById('item-desc-panel');
+    const {
+        EVENT_DURATION_MS,
+        formatKyivDate,
+        getCalendarRange,
+        getNextEventDate
+    } = globalThis.CafeSchedule;
+    const getNextEvent = (now = new Date()) => getNextEventDate(
+        now,
+        globalThis.CAFE_EVENT_DATES || []
+    );
 
     // --- Web Audio API Synth Engine ---
     function initAudio() {
@@ -156,7 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ambientStopTimer = setTimeout(() => {
             nodesToStop.forEach(node => {
-                try { node.stop(); } catch(e) {}
+                try {
+                    node.stop();
+                } catch {
+                    // The oscillator may already have reached its scheduled stop.
+                }
             });
             ambientStopTimer = null;
         }, 140);
@@ -327,12 +305,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (crtEnabled) {
             body.classList.add('crt-active');
             crtToggle.classList.add('active');
-            crtToggle.textContent = 'ON';
+            crtToggle.setAttribute('aria-pressed', 'true');
             sounds.toggleOn();
         } else {
             body.classList.remove('crt-active');
             crtToggle.classList.remove('active');
-            crtToggle.textContent = 'OFF';
+            crtToggle.setAttribute('aria-pressed', 'false');
             sounds.toggleOff();
         }
     });
@@ -341,13 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
         soundEnabled = !soundEnabled;
         if (soundEnabled) {
             soundToggle.classList.add('active');
-            soundToggle.textContent = 'ON';
+            soundToggle.setAttribute('aria-pressed', 'true');
             initAudio();
             sounds.toggleOn();
             await startAmbient();
         } else {
             soundToggle.classList.remove('active');
-            soundToggle.textContent = 'OFF';
+            soundToggle.setAttribute('aria-pressed', 'false');
             stopAmbient();
         }
     });
@@ -356,15 +334,11 @@ document.addEventListener('DOMContentLoaded', () => {
     calendarBtn.addEventListener('click', () => {
         sounds.click();
 
-        const nextEvent = getNextEventDate();
-        const k = getKyivParts(nextEvent);
-
-        const dateStr = `${k.year}${String(k.month).padStart(2, '0')}${String(k.dayOfMonth).padStart(2, '0')}T${String(k.hour).padStart(2, '0')}${String(k.minute).padStart(2, '0')}00`;
-        const endDateStr = `${k.year}${String(k.month).padStart(2, '0')}${String(k.dayOfMonth).padStart(2, '0')}T${String(k.hour + 2).padStart(2, '0')}3000`;
+        const nextEvent = getNextEvent();
 
         const url = `https://www.google.com/calendar/render?action=TEMPLATE` +
             `&text=${encodeURIComponent('Емпатійне Кафе')}` +
-            `&dates=${dateStr}/${endDateStr}` +
+            `&dates=${getCalendarRange(nextEvent)}` +
             `&ctz=Europe/Kyiv` +
             `&location=${encodeURIComponent('https://meet.google.com/rwm-zzjr-bre')}` +
             `&details=${encodeURIComponent('Емпатійне Кафе — щотижнева зустріч.\nЩочетверга 19:20–21:30 (Київ)\n\nСайт: https://empathy.danvoronov.com/cafe/\nMeet: https://meet.google.com/rwm-zzjr-bre')}`;
@@ -373,38 +347,56 @@ document.addEventListener('DOMContentLoaded', () => {
         sounds.success();
     });
 
-    meetBtn.addEventListener('click', () => {
+    meetBtn.addEventListener('click', event => {
+        if (meetBtn.getAttribute('aria-disabled') === 'true') {
+            event.preventDefault();
+            return;
+        }
         sounds.success();
     });
 
     // --- RPG Inventory Tabs Handler ---
-    inventorySlots.forEach(slot => {
-        slot.addEventListener('click', () => {
-            const key = slot.getAttribute('data-item');
-            if (!key || !inventoryData[key]) return;
+    const inventorySlotList = Array.from(inventorySlots);
 
-            sounds.select();
+    function activateInventoryTab(slot, moveFocus = false) {
+        const key = slot.getAttribute('data-item');
+        const nextText = document.querySelector(`.item-text[data-item="${key}"]`);
+        const nextTitle = slot.querySelector('.slot-title');
+        if (!key || !nextText || !nextTitle) return;
 
-            // Set active classes in tablist
-            inventorySlots.forEach(s => {
-                s.classList.remove('active');
-                s.setAttribute('aria-selected', 'false');
-            });
-            slot.classList.add('active');
-            slot.setAttribute('aria-selected', 'true');
+        sounds.select();
 
-            itemTitle.style.opacity = 0;
-            itemTextPrimary.style.opacity = 0;
+        inventorySlotList.forEach(candidate => {
+            const isActive = candidate === slot;
+            candidate.classList.toggle('active', isActive);
+            candidate.setAttribute('aria-selected', String(isActive));
+            candidate.tabIndex = isActive ? 0 : -1;
+        });
 
-            setTimeout(() => {
-                const nextTitle = document.querySelector(`.item-title[data-item="${key}"]`);
-                const nextText = document.querySelector(`.item-text[data-item="${key}"]`);
-                if (nextTitle) itemTitle.textContent = nextTitle.textContent;
-                if (nextText) itemTextPrimary.textContent = nextText.textContent;
-                
-                itemTitle.style.opacity = 1;
-                itemTextPrimary.style.opacity = 1;
-            }, 50);
+        itemTexts.forEach(text => text.classList.toggle('active', text === nextText));
+        itemTitle.textContent = nextTitle.textContent;
+        itemPanel.setAttribute('aria-labelledby', slot.id);
+        if (moveFocus) slot.focus();
+    }
+
+    inventorySlotList.forEach((slot, index) => {
+        slot.addEventListener('click', () => activateInventoryTab(slot));
+        slot.addEventListener('keydown', event => {
+            let nextIndex = null;
+
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                nextIndex = (index + 1) % inventorySlotList.length;
+            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                nextIndex = (index - 1 + inventorySlotList.length) % inventorySlotList.length;
+            } else if (event.key === 'Home') {
+                nextIndex = 0;
+            } else if (event.key === 'End') {
+                nextIndex = inventorySlotList.length - 1;
+            }
+
+            if (nextIndex === null) return;
+            event.preventDefault();
+            activateInventoryTab(inventorySlotList[nextIndex], true);
         });
     });
 
@@ -426,83 +418,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusIndicator = document.getElementById('status-indicator');
     const infoDateEl = document.querySelector('.info-date');
 
-    function getKyivParts(date) {
-        const fmt = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'Europe/Kyiv',
-            weekday: 'short',
-            year: 'numeric', month: 'numeric', day: 'numeric',
-            hour: 'numeric', minute: 'numeric',
-            hour12: false
-        });
-        const map = {};
-        for (const p of fmt.formatToParts(date)) {
-            if (p.type !== 'literal') map[p.type] = p.value;
-        }
-        return {
-            day: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(map.weekday),
-            year: parseInt(map.year),
-            month: parseInt(map.month),
-            dayOfMonth: parseInt(map.day),
-            hour: parseInt(map.hour),
-            minute: parseInt(map.minute)
-        };
-    }
+    function setMeetAvailability(isAvailable) {
+        meetBtn.classList.toggle('disabled', !isAvailable);
+        meetBtn.setAttribute('aria-disabled', String(!isAvailable));
+        meetBtn.tabIndex = isAvailable ? 0 : -1;
 
-    function getNextEventDate() {
-        const now = new Date();
-        const eventStart = 19 * 60 + 20;
-
-        if (typeof nextDates !== 'undefined' && nextDates.length > 0) {
-            for (let dateStr of nextDates) {
-                const parts = dateStr.split('-');
-                if (parts.length === 3) {
-                    const year = parseInt(parts[0], 10);
-                    const month = parseInt(parts[1], 10);
-                    const day = parseInt(parts[2], 10);
-                    
-                    let candidate = new Date(year, month - 1, day, 19, 20, 0, 0);
-                    for (let i = 0; i < 2; i++) {
-                        const k = getKyivParts(candidate);
-                        const diff = (k.hour * 60 + k.minute) - eventStart;
-                        if (diff !== 0) candidate = new Date(candidate.getTime() - diff * 60000);
-                    }
-                    
-                    const eventEnd = new Date(candidate.getTime() + (2 * 60 + 10) * 60000);
-                    if (now < eventEnd) {
-                        return candidate;
-                    }
-                }
-            }
-        }
-
-        // Fallback
-        const kyiv = getKyivParts(now);
-        const totalMin = kyiv.hour * 60 + kyiv.minute;
-        let daysToAdd;
-        if (kyiv.day === 4) {
-            daysToAdd = (totalMin < 21 * 60 + 30) ? 0 : 7;
+        if (isAvailable) {
+            meetBtn.href = meetBtn.dataset.href;
         } else {
-            daysToAdd = (4 - kyiv.day + 7) % 7;
+            meetBtn.removeAttribute('href');
         }
-
-        let nextEvent = new Date(kyiv.year, kyiv.month - 1, kyiv.dayOfMonth + daysToAdd, 19, 20, 0, 0);
-        for (let i = 0; i < 2; i++) {
-            const k = getKyivParts(nextEvent);
-            const diff = (k.hour * 60 + k.minute) - eventStart;
-            if (diff !== 0) nextEvent = new Date(nextEvent.getTime() - diff * 60000);
-        }
-
-        return nextEvent;
     }
 
     function updateStatus() {
         const now = new Date();
-        const nextEvent = getNextEventDate();
-        const eventEnd = new Date(nextEvent.getTime() + (2 * 60 + 10) * 60000);
+        const nextEvent = getNextEvent(now);
+        const eventEnd = new Date(nextEvent.getTime() + EVENT_DURATION_MS);
 
         if (infoDateEl) {
-            const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
-            let dateStr = nextEvent.toLocaleDateString('uk-UA', dateOptions);
+            const dateStr = formatKyivDate(nextEvent);
             infoDateEl.textContent = `${dateStr.toUpperCase()}, 19:20 (КИЇВСЬКИЙ ЧАС)`;
         }
 
@@ -511,8 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isOnline) {
             statusText.innerHTML = '<span class="status-word status-online">ONLINE</span>';
             statusIndicator.className = 'status-indicator online blinking';
-            meetBtn.removeAttribute('disabled');
-            meetBtn.classList.remove('disabled');
+            setMeetAvailability(true);
             if (calendarBtn) calendarBtn.style.display = 'none';
             return;
         }
@@ -535,8 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusText.innerHTML = '<span class="status-word status-offline">ЧЕКАЄМО</span>';
         }
         statusIndicator.className = 'status-indicator offline';
-        meetBtn.setAttribute('disabled', 'disabled');
-        meetBtn.classList.add('disabled');
+        setMeetAvailability(false);
     }
 
     updateStatus();
@@ -638,6 +570,22 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTooltipPosition();
         }
     }, { passive: true });
+
+    // Load emoji artwork after the page is interactive. If the CDN is
+    // unavailable, native emoji remain visible as a graceful fallback.
+    const twemojiScript = document.createElement('script');
+    twemojiScript.src = 'https://cdn.jsdelivr.net/npm/@twemoji/api@17.0.3/dist/twemoji.min.js';
+    twemojiScript.async = true;
+    twemojiScript.integrity = 'sha384-Y5xukbGJwykbHHkTbLJykYLcBPFxrwipTbEh0puxhkz9CZ90raTPGe2Ks4vCxsYU';
+    twemojiScript.crossOrigin = 'anonymous';
+    twemojiScript.addEventListener('load', () => {
+        globalThis.twemoji.parse(document.querySelector('main'), {
+            base: 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.3/assets/',
+            folder: 'svg',
+            ext: '.svg'
+        });
+    }, { once: true });
+    document.head.append(twemojiScript);
 
     console.log("8-Bit Cafe Interaction Loaded! Press 'C' for CRT, 'S' for Sound.");
 });
