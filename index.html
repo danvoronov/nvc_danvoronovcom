@@ -68,12 +68,60 @@
             margin-bottom: 5px;
         }
 
-        .table-wrapper {
-            overflow-x: auto;
-            margin-bottom: 30px;
+        .table-card {
             border-radius: 8px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            background-color: #fff;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 0;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        .table-toggle-bar {
+            background-color: #f7fafc;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            padding: 10px 16px;
+        }
+
+        .table-toggle-btn {
+            background-color: #ffffff;
+            color: #2c3e50;
+            border: 1px solid #cbd5e0;
+            padding: 8px 24px;
+            font-size: 0.9em;
+            font-family: inherit;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-toggle-btn:hover {
+            background-color: #3498db;
+            color: #ffffff;
+            border-color: #3498db;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        table tbody tr.collapsible-row {
+            display: none;
+        }
+
+        table.expanded tbody tr.collapsible-row {
+            display: table-row;
         }
 
         table {
@@ -138,67 +186,74 @@
 </head>
 <body>
     <div class="container">
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Егоцентризм</th>
-                        <th>Симпатія</th>
-                        <th>Емпатія</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Визначення</td>
-                        <td>Зосередженість особистості на власних цілях, прагненнях і переживаннях</td>
-                        <td>Емоційна прихильність на основі спільних почуттів чи темпераменту. Здатність поділяти й реагувати на турботи чи почуття інших людей</td>
-                        <td>Емоційно-когнитивний резонанс на переживання іншої людини, здатність відчувати й розуміти чужий досвід і внутрішній світ </td>
-                    </tr>
-                    <tr>
-                        <td>Фокус уваги</td>
-                        <td>На собі — власних цілях і переживаннях</td>
-                        <td>На іншому схожему, але «ззовні», як спостерігач</td>
-                        <td>На іншому «зсередини» — спроба відчути те, що відчуває він</td>
-                    </tr>
-                    <tr>
-                        <td>Рівень ідентифікації з іншим</td>
-                        <td>Мінімальний або відсутній</td>
-                        <td>Середній (відчуття спільності, але з дистанцією)</td>
-                        <td>Високий (тимчасове «входження» в стан іншого зі збереженням розрізнення «я — інший»)</td>
-                    </tr>
-                    <tr>
-                        <td>Природа процесу</td>
-                        <td>Переважно когнітивна царина, багато в чому незалежна від особистісних рис людини</td>
-                        <td>Переважно емоційний відгук — занепокоєння чи прихильність, без обов'язкового глибокого розуміння</td>
-                        <td>Поєднує когнітивний (розуміння перспективи) і афективний (спільне переживання) компоненти</td>
-                    </tr>
-                    <tr>
-                        <td>Афективний (емоційний) компонент</td>
-                        <td>Фокус на власних емоціях</td>
-                        <td>Почуття жалю, турботи, співчуття (але не обов’язково ті самі емоції)</td>
-                        <td>Емоційна емпатія — розділення або резонанс з емоціями іншого</td>
-                    </tr>
-                    <tr>
-                        <td>Рівень емоційної дистанції</td>
-                        <td>Максимальна (фокус тільки на собі)</td>
-                        <td>Середня («я відчуваю за тебе»)</td>
-                        <td>Мінімальна («я відчуваю з тобою»), але зі збереженням меж</td>
-                    </tr>
-                    <tr>
-                        <td>Формула переживання</td>
-                        <td>«Все навколо — про мене»</td>
-                        <td>«Мені шкода за тебе» (feeling for)</td>
-                        <td>«Я відчуваю це разом із тобою» (feeling with)</td>
-                    </tr>
-                    <tr>
-                        <td>Зв'язок із поведінкою</td>
-                        <td>Здебільшого заважає бачити ситуації з точки зору іншого, роблячи людину нечутливою до чужих потреб</td>
-                        <td>Пов'язана з допомагаючою поведінкою та альтруїзмом</td>
-                        <td>Спонукає до щирої підтримки, що ґрунтуються на глибокому розумінні стану й потреб іншої людини</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="table-card">
+            <div class="table-wrapper">
+                <table id="empathyTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Егоцентризм</th>
+                            <th>Симпатія</th>
+                            <th>Емпатія</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Визначення</td>
+                            <td>Зосередженість особистості на власних цілях, прагненнях і переживаннях</td>
+                            <td>Емоційна прихильність на основі спільних почуттів чи темпераменту. Здатність поділяти й реагувати на турботи чи почуття інших людей</td>
+                            <td>Емоційно-когнитивний резонанс на переживання іншої людини, здатність відчувати й розуміти чужий досвід і внутрішній світ </td>
+                        </tr>
+                        <tr class="collapsible-row">
+                            <td>Фокус уваги</td>
+                            <td>На собі — власних цілях і переживаннях</td>
+                            <td>На іншому схожему, але «ззовні», як спостерігач</td>
+                            <td>На іншому «зсередини» — спроба відчути те, що відчуває він</td>
+                        </tr>
+                        <tr class="collapsible-row">
+                            <td>Рівень ідентифікації з іншим</td>
+                            <td>Мінімальний або відсутній</td>
+                            <td>Середній (відчуття спільності, але з дистанцією)</td>
+                            <td>Високий (тимчасове «входження» в стан іншого зі збереженням розрізнення «я — інший»)</td>
+                        </tr>
+                        <tr class="collapsible-row">
+                            <td>Природа процесу</td>
+                            <td>Переважно когнітивна царина, багато в чому незалежна від особистісних рис людини</td>
+                            <td>Переважно емоційний відгук — занепокоєння чи прихильність, без обов'язкового глибокого розуміння</td>
+                            <td>Поєднує когнітивний (розуміння перспективи) і афективний (спільне переживання) компоненти</td>
+                        </tr>
+                        <tr class="collapsible-row">
+                            <td>Афективний (емоційний) компонент</td>
+                            <td>Фокус на власних емоціях</td>
+                            <td>Почуття жалю, турботи, співчуття (але не обов’язково ті самі емоції)</td>
+                            <td>Емоційна емпатія — розділення або резонанс з емоціями іншого</td>
+                        </tr>
+                        <tr class="collapsible-row">
+                            <td>Рівень емоційної дистанції</td>
+                            <td>Максимальна (фокус тільки на собі)</td>
+                            <td>Середня («я відчуваю за тебе»)</td>
+                            <td>Мінімальна («я відчуваю з тобою»), але зі збереженням меж</td>
+                        </tr>
+                        <tr class="collapsible-row">
+                            <td>Формула переживання</td>
+                            <td>«Все навколо — про мене»</td>
+                            <td>«Мені шкода за тебе» (feeling for)</td>
+                            <td>«Я відчуваю це разом із тобою» (feeling with)</td>
+                        </tr>
+                        <tr class="collapsible-row">
+                            <td>Зв'язок із поведінкою</td>
+                            <td>Здебільшого заважає бачити ситуації з точки зору іншого, роблячи людину нечутливою до чужих потреб</td>
+                            <td>Пов'язана з допомагаючою поведінкою та альтруїзмом</td>
+                            <td>Спонукає до щирої підтримки, що ґрунтуються на глибокому розумінні стану й потреб іншої людини</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-toggle-bar">
+                <button type="button" class="table-toggle-btn" id="toggleTableBtn" aria-expanded="false" onclick="toggleTable()">
+                    Розгорнути таблицю &#9660;
+                </button>
+            </div>
         </div>
 
         <div class="divider"></div>
@@ -264,6 +319,24 @@
             <p><a href="https://danvoronov.com/">Dan Voronov - Основний сайт</a></p>
         </div>
     </div>
+    <script>
+        function toggleTable() {
+            const table = document.getElementById('empathyTable');
+            const btn = document.getElementById('toggleTableBtn');
+            const isExpanded = table.classList.contains('expanded');
+            
+            if (isExpanded) {
+                table.classList.remove('expanded');
+                btn.innerHTML = 'Розгорнути таблицю &#9660;';
+                btn.setAttribute('aria-expanded', 'false');
+                table.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                table.classList.add('expanded');
+                btn.innerHTML = 'Згорнути таблицю &#9650;';
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+    </script>
 </body>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="41dd411d-234d-4eae-b541-1103fd71b6ad"></script>
 </html>
