@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Емпатія — таймлайн персоналій</title>
+  <meta name="description" content="Емпатія — інтерактивна хронологія персоналій та ідей: від морального почуття та Einfühlung до нейронауки, терапії та Емпатійних кіл." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #12110f;
+      --bg-2: #1b1916;
+      --ink: #efe8dc;
+      --muted: #a79b8a;
+      --line: #3a342c;
+      --card: #221f1b;
+      --card-2: #2a2621;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+    body {
+      font-family: Manrope, system-ui, sans-serif;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(900px 500px at 10% -10%, rgba(201,162,39,.08), transparent 50%),
+        radial-gradient(700px 400px at 100% 0%, rgba(192,38,211,.06), transparent 45%);
+    }
+
+    header.hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 20px;
+    }
+    .back-link {
+      display: inline-block;
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover {
+      color: var(--ink);
+      text-decoration: underline;
+    }
+    .back-link-top {
+      margin-bottom: 24px;
+    }
+    .back-link-bottom {
+      margin-top: 16px;
+    }
+    .kicker {
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: .95;
+      margin: 0 0 16px;
+    }
+    h1 em { font-style: italic; color: #e8c56b; }
+    .lede {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0 0 28px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .count {
+      font-size: 13px;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .chip .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--c, #888);
+    }
+    .chip.active {
+      background: color-mix(in srgb, var(--c) 18%, #1b1916);
+      border-color: color-mix(in srgb, var(--c) 55%, #3a342c);
+    }
+    .chip.all.active { background: #2d291f; border-color: #8a7a5c; }
+
+    .timeline-wrap {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 24px 80px;
+    }
+    .spine {
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(#3a342c, #6b5c43 12%, #3a342c);
+      transform: translateX(-.5px);
+    }
+
+    .pair { position: relative; }
+    .divider {
+      height: 0;
+      margin: 2px 0 36px;
+      border-top: 3px solid #8a7a5c;
+      border-radius: 2px;
+      opacity: .8;
+    }
+    .item {
+      position: relative;
+      width: min(46%, 460px);
+      margin: 0 0 28px;
+    }
+    .item.left { margin-right: auto; }
+    .item.right { margin-left: auto; }
+
+    .year-pill {
+      position: absolute;
+      top: 22px;
+      width: 92px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .04em;
+      color: #d9c59a;
+      background: #1b1916;
+      border: 1px solid #4a4032;
+      border-radius: 0;
+      padding: 3px 0;
+      z-index: 2;
+    }
+    .item.left .year-pill { right: -46px; transform: translateX(50%); }
+    .item.right .year-pill { left: -46px; transform: translateX(-50%); }
+
+    .node {
+      position: absolute;
+      top: 28px;
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--c);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 25%, transparent);
+      z-index: 2;
+    }
+    .item.left .node { right: -6px; transform: translateX(50%); }
+    .item.right .node { left: -6px; transform: translateX(-50%); }
+
+    .card {
+      position: relative;
+      background: linear-gradient(180deg, var(--card-2), var(--card));
+      border: 1px solid var(--line);
+      border-bottom: 3px solid var(--c);
+      border-radius: 0;
+      padding: 16px 16px 14px;
+      cursor: default;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .card:hover {
+      border-color: color-mix(in srgb, var(--c) 50%, #3a342c);
+    }
+
+    .domain {
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--c);
+      margin-bottom: 6px;
+    }
+    .name {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 28px;
+      line-height: 1.05;
+      margin: 0 0 2px;
+    }
+    .orig {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      font-size: 12px;
+      color: #cbbba3;
+      margin-bottom: 10px;
+    }
+    .work {
+      font-size: 13px;
+      color: #e4d3b4;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .contrib {
+      font-size: 14px;
+      line-height: 1.55;
+      color: #ddd4c6;
+    }
+
+    .hoverbox {
+      position: absolute;
+      top: 20px;
+      width: min(46%, 460px);
+      z-index: 20;
+      background: #1c1915;
+      backdrop-filter: blur(4px);
+      color: #f3eadc;
+      border: 1px solid color-mix(in srgb, var(--c) 45%, #3a342c);
+      border-radius: 0;
+      padding: 12px 14px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      box-shadow: 0 14px 34px rgba(0,0,0,.5);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: opacity .16s ease, transform .16s ease, visibility 0s linear .16s;
+      pointer-events: none;
+    }
+    .hoverbox.left { left: calc(50% + 41px); }
+    .hoverbox.right { right: calc(50% + 41px); }
+    .pair:has(.card:hover) .hoverbox,
+    .pair:has(.card:focus-within) .hoverbox {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition: opacity .16s ease, transform .16s ease;
+    }
+    .hoverbox b { color: var(--c); font-weight: 600; }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 40px 0;
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+      color: #7d7366;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .bg-emoji {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      user-select: none;
+    }
+    .bg-emoji span {
+      position: absolute;
+      line-height: 1;
+      transform: rotate(var(--r, 0deg));
+    }
+    header.hero, footer { position: relative; z-index: 1; }
+    .timeline-wrap { z-index: 1; }
+
+    @media (max-width: 860px) {
+      .spine { left: 18px; }
+      .item { width: calc(100% - 36px); margin-left: 36px !important; margin-right: 0 !important; }
+      .item .year-pill,
+      .item.left .year-pill,
+      .item.right .year-pill {
+        left: -18px; right: auto; transform: none;
+        top: -10px; width: auto; padding: 2px 8px;
+      }
+      .item .node,
+      .item.left .node,
+      .item.right .node {
+        left: -18px; right: auto; transform: translateX(-50%);
+      }
+      .hoverbox,
+      .hoverbox.left,
+      .hoverbox.right {
+        top: auto;
+        bottom: 12px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-emoji" id="bgEmoji" aria-hidden="true"></div>
+  <header class="hero">
+    <div>
+      <a href="../" class="back-link back-link-top">← Повернутися на головну</a>
+    </div>
+    <h1>Хто творив тему<br><em>емпатії</em></h1>
+    <p class="lede">
+      Люди та персоналії, які вводили, вимірювали, лікували, сканували та оскаржували емпатію —
+      у моральній філософії, естетиці, феноменології, терапії, психології розвитку, нейронауці та культурі.
+      Наведіть на картку: там коротко описано, що саме ця людина зробила в цій темі.
+    </p>
+    <div class="filters" id="filters"></div>
+  </header>
+
+  <main class="timeline-wrap">
+    <div class="spine"></div>
+    <div id="list"></div>
+    <div class="empty" id="empty" hidden>Нікого не знайдено за цим фільтром.</div>
+  </main>
+
+  <footer>
+    <p>Рік на осі — опорний момент вкладу (книга, термін, експеримент), а не рік народження.</p>
+    <div>
+      <a href="../" class="back-link back-link-bottom">← Повернутися на головну</a>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    const fmtYear = (y, label) => label || String(y);
+
+    function initData(data) {
+      data.people.sort((a, b) => a.year - b.year);
+    }
+
+    function render(data, activeDomain) {
+      const people = data.people.filter((p) => {
+        return !activeDomain || p.domain === activeDomain;
+      });
+
+      const list = document.getElementById("list");
+      const empty = document.getElementById("empty");
+      const countEl = document.getElementById("count");
+      if (countEl) {
+        countEl.textContent = people.length + " з " + data.people.length;
+      }
+
+      if (!people.length) {
+        list.innerHTML = "";
+        empty.hidden = false;
+        return;
+      }
+      empty.hidden = true;
+
+      list.innerHTML = people.map((p, i) => {
+        const c = data.meta.domains[p.domain].color;
+        const d = data.meta.domains[p.domain].label;
+        const side = i % 2 ? "right" : "left";
+        return (p.divider ? '<div class="divider"></div>' : "") + `
+          <div class="pair" style="--c:${c}">
+            <article class="item ${side}">
+              <div class="node"></div>
+              <div class="year-pill">${fmtYear(p.year, p.yearLabel)}</div>
+              <div class="card" tabindex="0">
+                <div class="domain">${d}</div>
+                <h2 class="name">${p.name}</h2>
+                <div class="orig">${p.nameOriginal} · ${p.lived}</div>
+                <div class="meta">
+                  <span>${p.role}</span>
+                  <span>${p.place}</span>
+                </div>
+                <div class="work">${p.keyWork}</div>
+                <div class="contrib">${p.contribution}</div>
+              </div>
+            </article>
+            <div class="hoverbox ${side}">
+              <b>Коли та що зробив(ла).</b> ${p.hover}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function mountFilters(data, state) {
+      const box = document.getElementById("filters");
+      const entries = [["", "Усі"], ...Object.entries(data.meta.domains).map(([k, v]) => [k, v.label])];
+      box.innerHTML = entries.map(([k, label]) => {
+        const color = k ? data.meta.domains[k].color : "#000000";
+        const cls = "chip" + (k === "" ? " all" : "") + (state.domain === k ? " active" : "");
+        return `<button class="${cls}" data-domain="${k}" style="--c:${color}"><span class="dot"></span>${label}</button>`;
+      }).join("") + '<span class="count" id="count"></span>';
+
+      box.addEventListener("click", (e) => {
+        const btn = e.target.closest(".chip");
+        if (!btn) return;
+        state.domain = btn.dataset.domain;
+        box.querySelectorAll(".chip").forEach((b) => {
+          b.classList.toggle("active", b.dataset.domain === state.domain);
+        });
+        render(data, state.domain);
+      });
+    }
+
+    async function boot() {
+      const EMOJIS = ["💗", "🕊️", "🤝", "🫶", "❤️", "💞", "🥰", "🌷", "🙏", "💖"];
+      const bg = document.getElementById("bgEmoji");
+      const fragment = document.createDocumentFragment();
+      const COLS = 6, ROWS = 5;
+      const cellW = 100 / COLS, cellH = 100 / ROWS;
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const s = document.createElement("span");
+          s.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+          s.style.left = (c * cellW + Math.random() * cellW * 0.7 + cellW * 0.15).toFixed(2) + "%";
+          s.style.top = (r * cellH + Math.random() * cellH * 0.7 + cellH * 0.15).toFixed(2) + "%";
+          s.style.fontSize = (20 + Math.random() * 26).toFixed(1) + "px";
+          s.style.opacity = (0.2 + Math.random() * 0.14).toFixed(3);
+          s.style.setProperty("--r", (Math.random() * 40 - 20).toFixed(1) + "deg");
+          fragment.appendChild(s);
+        }
+      }
+      bg.appendChild(fragment);
+
+      let data = window.EMPATHY_DATA;
+      if (!data) {
+        const res = await fetch("empathy-figures.json");
+        data = await res.json();
+      }
+      initData(data);
+      const state = { domain: "" };
+      mountFilters(data, state);
+      render(data, state.domain);
+    }
+
+    boot().catch((err) => {
+      document.getElementById("list").innerHTML =
+        "<p class='empty'>Не вдалося завантажити дані. Потрібні data.js або empathy-figures.json поруч із index.html.</p>";
+      console.error(err);
+    });
+  </script>
+</body>
+</html>
