@@ -12,12 +12,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=31">
+  <link rel="stylesheet" href="style.css?v=32">
 </head>
 <body>
 
   <!-- Noise Overlay -->
   <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ==============================
+       TOP NAVIGATION & ANNOUNCEMENT BANNER
+       ============================== -->
+  <header class="top-nav-bar">
+    <div class="top-nav-bar__container">
+      
+      <a href="../" class="top-nav-bar__back-link" title="Повернутися на головну">
+        <svg class="top-nav-bar__back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>На головну</span>
+      </a>
+
+      <div class="top-nav-banner" role="alert">
+        <div class="top-nav-banner__badge">
+          <span class="top-nav-banner__dot" aria-hidden="true"></span>
+          Група вже набрана
+        </div>
+        <div class="top-nav-banner__content">
+          Але є відкриті зустрічі щочетверга — приєднуйтесь до <a href="../cafe/" class="top-nav-banner__cafe-link">Емпатійного кафе ➔</a>
+        </div>
+      </div>
+
+    </div>
+  </header>
 
   <!-- ==============================
        HERO
