@@ -787,6 +787,19 @@ body.crt-active::after {
     text-shadow: 0 0 8px var(--orange-glow);
 }
 
+.content-link {
+    color: var(--orange-bright);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-style: dotted;
+    transition: all 0.15s ease;
+}
+
+.content-link:hover {
+    color: var(--text-color);
+    text-shadow: 0 0 8px var(--orange-glow);
+}
+
 /* --- Pixel Buttons --- */
 .pixel-btn {
     font-family: var(--font-heading);
