@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171426">
+<meta name="description" content="40 хвилин нерозділеної уваги й емпатичного слухання.">
+<title>1:1 — 40 хвилин нерозділеної уваги</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #171426;
+    --paper: #f6f3ed;
+    --ink: #28241f;
+    --muted: #746d64;
+    --gold: #caa66b;
+    --gold-light: #ead6ad;
+    --display: "Newsreader", Georgia, serif;
+    --sans: "Manrope", Arial, sans-serif;
+    --mono: "DM Mono", Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--night);
+  }
+
+  button { font: inherit; }
+
+  .stage {
+    --pos: 9%;
+    --strain-width: 70px;
+    --strain-opacity: .18;
+    --strain-scale: 1;
+    --strain-shadow: 9px;
+    --strain-angle: 0deg;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 560px;
+    overflow: hidden;
+    isolation: isolate;
+    opacity: 0;
+    animation: enter 650ms ease-out forwards;
+  }
+
+  @keyframes enter { to { opacity: 1; } }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  /* Layer 1: no explanation, only the experience itself. */
+  .chaos {
+    z-index: 1;
+    background:
+      radial-gradient(circle at 18% 12%, rgba(125, 105, 168, .28), transparent 30%),
+      radial-gradient(circle at 82% 84%, rgba(72, 91, 129, .22), transparent 33%),
+      radial-gradient(circle at 54% 44%, rgba(124, 70, 93, .11), transparent 28%),
+      linear-gradient(138deg, #191529 0%, #151321 48%, #201b31 100%);
+  }
+
+  .chaos::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .3;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+  }
+
+  .chaos-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* Layer 2: the same inner life, with air and relationships between things. */
+  .order {
+    z-index: 2;
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+    background: var(--paper);
+    will-change: clip-path;
+  }
+
+  .order::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: .27;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(40, 36, 31, .18) .5px, transparent .5px);
+    background-size: 7px 7px;
+  }
+
+  .inner-world {
+    position: absolute;
+    inset: clamp(25px, 5vh, 58px) clamp(30px, 6vw, 92px);
+    color: var(--ink);
+  }
+
+  .inner-world::before,
+  .inner-world::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    pointer-events: none;
+    border: 1px solid rgba(86, 75, 60, .09);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .inner-world::before { width: min(50vw, 690px); aspect-ratio: 1.7; }
+  .inner-world::after { width: min(31vw, 430px); aspect-ratio: 1.45; }
+
+  .axis {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    width: min(390px, 31vw);
+    padding: 31px 34px 29px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(246, 243, 237, .86);
+  }
+
+  .axis span {
+    display: block;
+    margin-bottom: 11px;
+    font: 400 9px/1 var(--mono);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #95794f;
+  }
+
+  .axis p {
+    margin: 0;
+    font: italic 400 clamp(23px, 2.5vw, 37px)/1.08 var(--display);
+    letter-spacing: -.025em;
+    color: #3b352d;
+  }
+
+  .cluster {
+    --accent: #97764b;
+    position: absolute;
+    z-index: 2;
+    width: min(250px, 20vw);
+  }
+
+  .cluster::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: -17px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent), transparent 88%);
+  }
+
+  .cluster h2 {
+    margin: 0 0 12px;
+    font: 400 9px/1.3 var(--mono);
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .cluster p {
+    margin: 0 0 7px;
+    font: 400 clamp(12px, 1.15vw, 15px)/1.42 var(--sans);
+    color: #4d4841;
+  }
+
+  .cluster p:last-child { margin-bottom: 0; }
+
+  .cluster-feel { top: 4%; left: 7%; --accent: #9d625b; }
+  .cluster-fear { top: 5%; left: 39%; --accent: #755f91; }
+  .cluster-need { top: 7%; right: 4%; --accent: #507965; }
+  .cluster-important { bottom: 4%; left: 12%; --accent: #977447; }
+  .cluster-choice { right: 9%; bottom: 4%; --accent: #526f8a; }
+
+  .thread {
+    position: absolute;
+    z-index: 1;
+    height: 1px;
+    opacity: .16;
+    transform-origin: left center;
+    background: #776b5d;
+  }
+
+  .thread-one { left: 21%; top: 25%; width: 29%; transform: rotate(21deg); }
+  .thread-two { left: 51%; top: 28%; width: 30%; transform: rotate(-18deg); }
+  .thread-three { left: 25%; bottom: 24%; width: 27%; transform: rotate(-17deg); }
+  .thread-four { left: 50%; bottom: 27%; width: 31%; transform: rotate(16deg); }
+
+  /* The curtain visibly strains, then becomes direct once attention is shared. */
+  .seam-light {
+    position: absolute;
+    z-index: 3;
+    top: -10%;
+    bottom: -10%;
+    left: var(--pos);
+    width: var(--strain-width);
+    transform: translateX(-50%);
+    pointer-events: none;
+    opacity: var(--strain-opacity);
+    filter: blur(21px);
+    background: linear-gradient(90deg, transparent, rgba(234, 214, 173, .95), transparent);
+  }
+
+  .divider {
+    position: absolute;
+    z-index: 6;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 48px;
+    padding: 0;
+    transform: translateX(-50%);
+    border: 0;
+    outline: none;
+    background: transparent;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .stage.dragging .divider { cursor: grabbing; }
+
+  .divider-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%) scaleX(var(--strain-scale));
+    background: linear-gradient(180deg, #9d7641, var(--gold-light) 48%, #96703a);
+    box-shadow: 0 0 var(--strain-shadow) rgba(202, 166, 107, .5);
+  }
+
+  .divider-grip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 88px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%) rotate(var(--strain-angle));
+    color: #211d18;
+    border: 1px solid rgba(66, 49, 27, .34);
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ead4a7, #ba9052);
+    box-shadow: 0 12px 31px rgba(0, 0, 0, .36), inset 0 1px rgba(255, 255, 255, .56);
+    transition: transform 120ms ease;
+  }
+
+  .divider-grip::before,
+  .divider-grip::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 15px;
+    height: 1px;
+    transform: translateX(-50%);
+    background: rgba(44, 34, 20, .32);
+  }
+
+  .divider-grip::before { top: 25px; }
+  .divider-grip::after { bottom: 25px; }
+  .divider-grip svg { width: 17px; height: 17px; }
+
+  .divider:focus-visible .divider-grip {
+    box-shadow: 0 0 0 4px rgba(234, 214, 173, .42), 0 12px 31px rgba(0, 0, 0, .36);
+  }
+
+  /* Layer 3: appears only after the curtain has resisted and returned. */
+  .attention-offer {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 380ms ease, visibility 0s linear 380ms;
+  }
+
+  .attention-offer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 13, 24, .56);
+  }
+
+  .stage.offer-visible .attention-offer {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+
+  .offer-panel {
+    position: relative;
+    width: min(780px, calc(100vw - 48px));
+    padding: clamp(24px, 4vw, 46px);
+    display: grid;
+    grid-template-columns: 145px 1fr;
+    gap: clamp(25px, 4vw, 48px);
+    align-items: center;
+    color: var(--ink);
+    background: rgba(246, 243, 237, .97);
+    border: 1px solid rgba(202, 166, 107, .52);
+    box-shadow: 0 36px 90px rgba(0, 0, 0, .38);
+    transform: translateY(18px) scale(.985);
+    transition: transform 420ms cubic-bezier(.2, .75, .2, 1), opacity 280ms ease;
+  }
+
+  .stage.offer-visible .offer-panel { transform: translateY(0) scale(1); }
+  .stage.assisted .attention-offer { opacity: 0; pointer-events: none; }
+
+  .photo-placeholder {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    width: 145px;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #b7b4af;
+    border: 1px solid rgba(40, 36, 31, .13);
+  }
+
+  .photo-placeholder::before,
+  .photo-placeholder::after {
+    content: "";
+    position: absolute;
+    background: rgba(255, 255, 255, .25);
+  }
+
+  .photo-placeholder::before { width: 1px; height: 142%; transform: rotate(45deg); }
+  .photo-placeholder::after { width: 142%; height: 1px; transform: rotate(45deg); }
+
+  .photo-placeholder span {
+    position: relative;
+    z-index: 1;
+    padding: 7px 9px;
+    text-align: center;
+    color: #5d5a55;
+    background: rgba(246, 243, 237, .76);
+    font: 400 8px/1.45 var(--mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .offer-copy,
+  .offer-description,
+  .offer-action,
+  .offer-boundary { grid-column: 2; }
+
+  .offer-kicker {
+    margin: 0 0 12px;
+    color: #8d7045;
+    font: 400 9px/1.3 var(--mono);
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+
+  .offer-copy h2 {
+    max-width: 520px;
+    margin: 0;
+    color: #332e28;
+    font: italic 400 clamp(31px, 4vw, 48px)/1.02 var(--display);
+    letter-spacing: -.035em;
+  }
+
+  .offer-description {
+    max-width: 535px;
+    margin: 17px 0 0;
+    color: #5e574e;
+    font: 400 clamp(13px, 1.3vw, 15px)/1.65 var(--sans);
+  }
+
+  .offer-action {
+    margin-top: 24px;
+    padding-top: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border-top: 1px solid rgba(40, 36, 31, .14);
+  }
+
+  .price strong,
+  .price span { display: block; }
+
+  .price strong {
+    color: #302b25;
+    font: 500 19px/1.1 var(--sans);
+  }
+
+  .price span {
+    margin-top: 5px;
+    color: var(--muted);
+    font: 400 9px/1.3 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .accept-button {
+    min-width: 150px;
+    padding: 13px 18px;
+    border: 1px solid #332a1f;
+    border-radius: 1px;
+    color: #f7f0e3;
+    background: #332a1f;
+    font: 600 11px/1.3 var(--sans);
+    cursor: pointer;
+    transition: transform 180ms ease, background 180ms ease;
+  }
+
+  .accept-button:hover { transform: translateY(-2px); background: #4b3d2c; }
+  .accept-button:focus-visible { outline: 3px solid rgba(202, 166, 107, .38); outline-offset: 3px; }
+
+  .offer-boundary {
+    margin: 13px 0 0;
+    color: #8a837a;
+    font: 300 8px/1.45 var(--mono);
+  }
+
+  .close-offer {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    color: #81786d;
+    background: transparent;
+    font: 300 23px/1 var(--sans);
+    cursor: pointer;
+  }
+
+  .close-offer:focus-visible { outline: 2px solid var(--gold); }
+
+  @media (max-width: 800px) {
+    .inner-world { inset: 30px 35px; }
+    .cluster { width: 26vw; }
+    .cluster-fear { left: 37%; }
+    .axis { width: 38vw; padding: 25px 22px; }
+    .inner-world::before { width: 62vw; }
+    .inner-world::after { width: 41vw; }
+  }
+
+  @media (max-width: 590px) {
+    .stage { min-height: 660px; }
+    .thought { max-width: 85vw; }
+    .inner-world { inset: 22px 21px 72px; }
+    .axis { top: 45%; width: 58vw; padding: 20px 16px; }
+    .axis p { font-size: 24px; }
+    .inner-world::before { width: 85vw; }
+    .inner-world::after { width: 61vw; }
+    .cluster { width: 35vw; }
+    .cluster p { font-size: 11px; }
+    .cluster p:nth-of-type(n+4) { display: none; }
+    .cluster-feel { top: 3%; left: 9%; }
+    .cluster-fear { top: 5%; left: 57%; }
+    .cluster-need { top: 67%; right: 3%; }
+    .cluster-important { bottom: 2%; left: 8%; }
+    .cluster-choice { right: 6%; bottom: 2%; }
+    .thread { display: none; }
+    .divider-grip { width: 44px; height: 78px; }
+    .offer-panel {
+      width: min(440px, calc(100vw - 28px));
+      padding: 22px 19px 20px;
+      grid-template-columns: 78px 1fr;
+      gap: 17px;
+      align-items: start;
+    }
+    .photo-placeholder { width: 78px; }
+    .photo-placeholder { grid-column: 1; grid-row: 1; }
+    .offer-copy { grid-column: 2; }
+    .offer-kicker { padding-right: 22px; }
+    .offer-copy h2 { font-size: clamp(28px, 9vw, 38px); }
+    .offer-description { grid-column: 1 / -1; font-size: 13px; }
+    .offer-action { grid-column: 1 / -1; margin-top: 18px; }
+    .offer-boundary { grid-column: 1 / -1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage { opacity: 1; animation: none; }
+    .attention-offer,
+    .offer-panel,
+    .divider-grip { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="stage" id="stage" aria-label="Від хаосу думок до впорядкованого внутрішнього простору">
+  <section class="layer chaos" aria-label="Рій думок">
+    <canvas class="chaos-canvas" id="chaosCanvas" aria-hidden="true"></canvas>
+  </section>
+
+  <section class="layer order" aria-label="Впорядкований внутрішній простір">
+    <div class="inner-world">
+      <span class="thread thread-one" aria-hidden="true"></span>
+      <span class="thread thread-two" aria-hidden="true"></span>
+      <span class="thread thread-three" aria-hidden="true"></span>
+      <span class="thread thread-four" aria-hidden="true"></span>
+
+      <section class="cluster cluster-feel">
+        <h2>я відчуваю</h2>
+        <p>втому, яку давно не помічаю</p>
+        <p>тривогу перед невідомим</p>
+        <p>самотність серед людей</p>
+        <p>злість, за яку себе картаю</p>
+      </section>
+
+      <section class="cluster cluster-fear">
+        <h2>я боюся</h2>
+        <p>помилитися й розчарувати</p>
+        <p>що мене не зрозуміють</p>
+        <p>попросити забагато</p>
+        <p>що вже надто пізно</p>
+      </section>
+
+      <section class="cluster cluster-need">
+        <h2>мені потрібно</h2>
+        <p>виговоритися без оцінки</p>
+        <p>не поспішати з рішенням</p>
+        <p>відчути, що поруч хтось є</p>
+        <p>побачити головне</p>
+      </section>
+
+      <div class="axis">
+        <span>головне зараз</span>
+        <p>Я хочу, щоб мене почули, а не виправили.</p>
+      </div>
+
+      <section class="cluster cluster-important">
+        <h2>для мене важливо</h2>
+        <p>не брехати собі</p>
+        <p>берегти близькість</p>
+        <p>мати право на свій темп</p>
+        <p>не зраджувати свої потреби</p>
+      </section>
+
+      <section class="cluster cluster-choice">
+        <h2>зараз я можу</h2>
+        <p>назвати одну важливу річ</p>
+        <p>не вирішувати все сьогодні</p>
+        <p>попросити про увагу</p>
+        <p>зробити наступний малий крок</p>
+      </section>
+    </div>
+  </section>
+
+  <div class="seam-light" aria-hidden="true"></div>
+
+  <button class="divider" id="divider" type="button" role="slider"
+    aria-label="Посунути шторку"
+    aria-orientation="horizontal" aria-valuemin="4" aria-valuemax="96" aria-valuenow="9">
+    <span class="divider-line" aria-hidden="true"></span>
+    <span class="divider-grip" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 7 4 12l5 5M15 7l5 5-5 5"/>
+      </svg>
+    </span>
+  </button>
+
+  <section class="attention-offer" id="attentionOffer" aria-hidden="true" aria-labelledby="offerTitle">
+    <div class="offer-panel" role="dialog" aria-modal="true">
+      <button class="close-offer" id="closeOffer" type="button" aria-label="Закрити пропозицію">×</button>
+
+      <div class="photo-placeholder" role="img" aria-label="Місце для вашого портретного фото">
+        <span>місце<br>для фото</span>
+      </div>
+
+      <div class="offer-copy">
+        <p class="offer-kicker">40 хвилин нерозділеної уваги</p>
+        <h2 id="offerTitle">Хочеш, я потримаю увагу разом із тобою?</h2>
+      </div>
+
+      <p class="offer-description">
+        У світі, де всі постійно перемикаються, зосереджена на одній людині увага стала рідкістю. Ці 40 хвилин я не відволікаюся, не оцінюю й не готую швидку пораду. Я слухаю, уточнюю та повертаю важливе — щоб у власних словах стало можливо почути себе.
+      </p>
+
+      <div class="offer-action">
+        <div class="price">
+          <strong>1 000 грн</strong>
+          <span>40 хвилин · онлайн</span>
+        </div>
+        <button class="accept-button" id="acceptAttention" type="button">Домовитися</button>
+      </div>
+
+      <p class="offer-boundary">Емпатичне слухання не замінює психотерапію, медичну чи екстрену допомогу.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  const THOUGHTS = [
+    "не знаю, з чого почати", "я знову все зіпсую", "треба нарешті якось зібрати себе докупи",
+    "а раптом я помиляюся", "чому досі не відповідають", "все одно не вийде",
+    "мене ніхто не розуміє", "може, я знову все занадто перебільшую", "зараз не на часі",
+    "ще трохи — і відпочину", "не хочу нікого навантажувати", "а що, як уже пізно",
+    "треба вже нарешті прийняти якесь рішення", "треба було зробити більше", "що зі мною не так?",
+    "може, краще знову просто промовчати", "мені досі страшенно соромно про це", "не можу зупинити це в голові",
+    "у мене вже немає сил це пояснювати", "хочу, щоб мене просто почули", "я не знаю, чого хочу",
+    "а раптом це моя провина", "треба ще трохи якось протриматися", "де мені тепер узяти на це сили?",
+    "чомусь сьогодні особливо самотньо всередині", "це зі мною взагалі зараз нормально?", "але продовжувати мовчати теж дуже важко",
+    "мені так хочеться хоч якоїсь ясності", "я відчуваю, що більше цього не витягую", "мені дуже незручно просити про допомогу",
+    "вони точно мене за це засудять", "чому це так болить", "я маю впоратися без допомоги",
+    "а якщо мене не почують", "хочу хоча б ненадовго просто видихнути", "може, зі мною все гаразд",
+    "я дуже сумую за тим часом", "я злюся сильніше, ніж хочу показати", "зовсім немає сил", "іноді здається, що мене для всіх забагато",
+    "чому я погодився", "знову цей дедлайн", "треба відповісти на лист",
+    "треба нарешті знайти час подзвонити мамі", "не забути про зустріч", "рахунок ще не сплачений",
+    "треба ще не забути купити хліб", "куди я знову поклав свої ключі", "треба нарешті записатися до лікаря",
+    "я хочу в гори", "сумую за морем", "хочу навчитися малювати",
+    "а що, як усе вийде", "кава сьогодні смачна", "я люблю запах дощу",
+    "треба частіше бачити друзів", "хочу написати книжку", "мені потрібна пауза",
+    "я хочу бути ближче", "не хочу втрачати себе", "це важливо для мене",
+    "чого я насправді хочу?", "можна не вирішувати зараз?", "просто побудь поруч"
+  ];
+
+  const FRAGMENTS = [
+    "і от усе починається знову", "чому я знову про це думаю", "а раптом усе піде зовсім не так", "це повторюється зі мною постійно", "тільки не зараз, я не готовий", "це треба вирішити просто зараз",
+    "я ще хоч щось встигну сьогодні?", "головне знову нічого не забути", "я обов'язково розберуся із цим потім", "чому все навалилося на мене одночасно", "краще просто промовчи й не починай",
+    "мені кажуть просто взяти й заспокоїтися", "спробуй хоча б повільніше дихати", "треба ще зовсім трохи потриматися", "мабуть, навіть починати цього не варто", "я знову зробив недостатньо добре",
+    "усі ці зусилля можуть бути марними", "здається, щось змінювати вже надто пізно", "треба думати й діяти значно швидше", "потерпи, залишилося ще зовсім трохи", "коли я нарешті зможу просто видихнути", "я більше так справді не можу",
+    "треба зробити ще стільки різного", "а якщо я виберу неправильно", "ну от, усе знову повторюється", "я серйозно зараз про це думаю?", "зачекай, я ще не встиг зрозуміти", "тільки б зараз знову не відволіктися",
+    "ця втома нікуди від мене не дівається", "мені досі соромно про це говорити", "хочеться опинитися десь у цілковитій тиші", "я не знаю, куди подіти цю злість", "цей страх знову стискає все всередині", "навіть поруч з людьми буває самотньо",
+    "я хочу нарешті дозволити собі хотіти", "я зовсім не хочу туди повертатися", "я досі не знаю правильної відповіді", "можливо, усе насправді не так погано", "зі мною точно зараз усе добре?", "будь ласка, просто уважно почуй мене"
+  ];
+
+  const COLORS = ["#e0a99f", "#b8c5d8", "#c8b5db", "#d8c29d", "#aebfa8", "#d7b1bd"];
+  const canvas = document.getElementById("chaosCanvas");
+  const context = canvas.getContext("2d", { alpha: true, desynchronized: true });
+  const stage = document.getElementById("stage");
+  const divider = document.getElementById("divider");
+  const attentionOffer = document.getElementById("attentionOffer");
+  const acceptAttention = document.getElementById("acceptAttention");
+  const closeOffer = document.getElementById("closeOffer");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let seed = 1989;
+  let pos = 9;
+  let dragging = false;
+  let assisted = false;
+  let startX = 0;
+  let startPos = pos;
+  let animationFrame = 0;
+  let keyboardReturnTimer = 0;
+  let swarmFrame = 0;
+  let lastSwarmFrame = 0;
+  let lastSwarmPaint = 0;
+  let canvasWidth = 0;
+  let canvasHeight = 0;
+  let pixelRatio = 1;
+  const particles = [];
+  const spriteCache = new Map();
+
+  function random() {
+    seed |= 0;
+    seed = seed + 0x6D2B79F5 | 0;
+    let value = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    value = value + Math.imul(value ^ value >>> 7, 61 | value) ^ value;
+    return ((value ^ value >>> 14) >>> 0) / 4294967296;
+  }
+
+  function between(min, max) { return min + random() * (max - min); }
+  function clamp(value, min, max) { return Math.min(max, Math.max(min, value)); }
+
+  function getSprite(text, size, color) {
+    const key = text + "|" + size + "|" + color + "|" + pixelRatio;
+    if (spriteCache.has(key)) return spriteCache.get(key);
+
+    const spriteCanvas = document.createElement("canvas");
+    const spriteContext = spriteCanvas.getContext("2d");
+    const font = "300 " + size + "px 'DM Mono', Consolas, monospace";
+    spriteContext.font = font;
+    const width = Math.ceil(spriteContext.measureText(text).width) + 8;
+    const height = Math.ceil(size * 1.55) + 4;
+    spriteCanvas.width = Math.ceil(width * pixelRatio);
+    spriteCanvas.height = Math.ceil(height * pixelRatio);
+    spriteContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    spriteContext.font = font;
+    spriteContext.textBaseline = "middle";
+    spriteContext.fillStyle = color;
+    spriteContext.fillText(text, 4, height / 2);
+
+    const sprite = { canvas: spriteCanvas, width: width, height: height };
+    spriteCache.set(key, sprite);
+    return sprite;
+  }
+
+  function addParticle(text, index, isFragment) {
+    const sizes = isFragment ? [8, 9, 11, 13, 15] : [10, 12, 14, 17, 21];
+    const size = sizes[Math.floor(between(0, sizes.length))];
+    const color = COLORS[index % COLORS.length];
+    const twitchy = random() < (isFragment ? .5 : .24);
+    const speedFactor = Math.exp(between(Math.log(.16), Math.log(3.35)));
+    const alpha = between(isFragment ? .25 : .34, isFragment ? .7 : .92);
+    const sprite = getSprite(text, size, color);
+
+    particles.push({
+      text: text,
+      size: size,
+      color: color,
+      sprite: sprite,
+      x: between(-sprite.width * .3, canvasWidth),
+      y: between(0, canvasHeight),
+      vx: between(-62, 62) * speedFactor,
+      vy: between(-46, 46) * speedFactor,
+      alpha: alpha,
+      baseAlpha: alpha,
+      nextKick: between(.02, twitchy ? .24 : 1.15),
+      nextFlicker: between(.08, 2.2),
+      twitchy: twitchy,
+      speedFactor: speedFactor,
+      isFragment: isFragment
+    });
+  }
+
+  function populateSwarm() {
+    THOUGHTS.forEach(function (text, index) {
+      addParticle(text, index, false);
+      addParticle(text, index + 2, false);
+      if (index % 3 === 0) addParticle(text, index + 4, false);
+    });
+
+    FRAGMENTS.forEach(function (text, index) {
+      addParticle(text, index + 1, true);
+      addParticle(text, index + 3, true);
+    });
+  }
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const previousWidth = canvasWidth || rect.width;
+    const previousHeight = canvasHeight || rect.height;
+    const previousRatio = pixelRatio;
+    canvasWidth = Math.max(1, Math.round(rect.width));
+    canvasHeight = Math.max(1, Math.round(rect.height));
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 1.25);
+    canvas.width = Math.round(canvasWidth * pixelRatio);
+    canvas.height = Math.round(canvasHeight * pixelRatio);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+    const ratioChanged = previousRatio !== pixelRatio;
+    if (ratioChanged) spriteCache.clear();
+
+    particles.forEach(function (particle) {
+      particle.x *= canvasWidth / previousWidth;
+      particle.y *= canvasHeight / previousHeight;
+      if (ratioChanged) {
+        particle.sprite = getSprite(particle.text, particle.size, particle.color);
+      }
+    });
+  }
+
+  function kickParticle(particle) {
+    const angle = between(0, Math.PI * 2);
+    const force = between(
+      particle.isFragment ? 65 : 42,
+      particle.isFragment ? 210 : 155
+    ) * particle.speedFactor;
+    const horizontalLimit = 90 + 175 * particle.speedFactor;
+    const verticalLimit = 70 + 145 * particle.speedFactor;
+
+    if (random() < .42) {
+      particle.vx = Math.cos(angle) * force;
+      particle.vy = Math.sin(angle) * force;
+    } else {
+      particle.vx = clamp(particle.vx + Math.cos(angle) * force, -horizontalLimit, horizontalLimit);
+      particle.vy = clamp(particle.vy + Math.sin(angle) * force, -verticalLimit, verticalLimit);
+    }
+
+    if (random() < .11) {
+      particle.x += between(-36, 36);
+      particle.y += between(-25, 25);
+    }
+
+    particle.nextKick = between(
+      particle.twitchy ? .035 : .16,
+      particle.twitchy ? .28 : 1.35
+    ) / Math.sqrt(particle.speedFactor);
+  }
+
+  function updateSwarm(delta) {
+    particles.forEach(function (particle) {
+      particle.nextKick -= delta;
+      particle.nextFlicker -= delta;
+
+      if (particle.nextKick <= 0) kickParticle(particle);
+      if (particle.nextFlicker <= 0) {
+        particle.alpha = random() < .22
+          ? particle.baseAlpha * between(.12, .48)
+          : particle.baseAlpha * between(.82, 1.12);
+        particle.nextFlicker = between(.07, 2.4);
+      }
+
+      const damping = Math.pow(.72, delta);
+      particle.vx *= damping;
+      particle.vy *= damping;
+      particle.x += particle.vx * delta;
+      particle.y += particle.vy * delta;
+
+      const margin = particle.sprite.width;
+      if (particle.x > canvasWidth + margin) particle.x = -margin;
+      else if (particle.x < -margin) particle.x = canvasWidth + margin;
+      if (particle.y > canvasHeight + 24) particle.y = -24;
+      else if (particle.y < -24) particle.y = canvasHeight + 24;
+    });
+  }
+
+  function drawSwarm() {
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
+    particles.forEach(function (particle) {
+      context.globalAlpha = clamp(particle.alpha, .06, 1);
+      context.drawImage(
+        particle.sprite.canvas,
+        particle.x,
+        particle.y - particle.sprite.height / 2,
+        particle.sprite.width,
+        particle.sprite.height
+      );
+    });
+    context.globalAlpha = 1;
+  }
+
+  function animateSwarm(now) {
+    swarmFrame = requestAnimationFrame(animateSwarm);
+    if (document.hidden) {
+      lastSwarmFrame = now;
+      return;
+    }
+
+    const interval = assisted ? 90 : 33;
+    if (now - lastSwarmPaint < interval) return;
+    const delta = Math.min((now - (lastSwarmFrame || now)) / 1000, .06);
+    lastSwarmFrame = now;
+    lastSwarmPaint = now;
+    updateSwarm(delta);
+    drawSwarm();
+  }
+
+  resizeCanvas();
+  populateSwarm();
+  drawSwarm();
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      spriteCache.clear();
+      particles.forEach(function (particle) {
+        particle.sprite = getSprite(particle.text, particle.size, particle.color);
+      });
+      drawSwarm();
+    });
+  }
+  if (!reducedMotion) swarmFrame = requestAnimationFrame(animateSwarm);
+  window.addEventListener("resize", resizeCanvas, { passive: true });
+
+  function setPos(next) {
+    pos = clamp(next, 4, 96);
+    stage.style.setProperty("--pos", pos + "%");
+    divider.setAttribute("aria-valuenow", Math.round(pos));
+  }
+
+  function setStrain(value) {
+    const strain = clamp(value, 0, 1);
+    stage.style.setProperty("--strain-width", (70 + 110 * strain) + "px");
+    stage.style.setProperty("--strain-opacity", (.18 + .45 * strain).toFixed(3));
+    stage.style.setProperty("--strain-scale", (1 + .72 * strain).toFixed(3));
+    stage.style.setProperty("--strain-shadow", (9 + 24 * strain) + "px");
+    stage.style.setProperty("--strain-angle", (-6 * strain) + "deg");
+  }
+
+  function easeOutCubic(value) { return 1 - Math.pow(1 - value, 3); }
+
+  function animateTo(target, duration, done) {
+    cancelAnimationFrame(animationFrame);
+    const from = pos;
+    const started = performance.now();
+
+    if (reducedMotion || duration === 0) {
+      setPos(target);
+      setStrain(0);
+      if (done) done();
+      return;
+    }
+
+    function frame(now) {
+      const progress = clamp((now - started) / duration, 0, 1);
+      setPos(from + (target - from) * easeOutCubic(progress));
+      if (progress < 1) animationFrame = requestAnimationFrame(frame);
+      else {
+        setStrain(0);
+        if (done) done();
+      }
+    }
+
+    animationFrame = requestAnimationFrame(frame);
+  }
+
+  function showOffer() {
+    if (assisted) return;
+    stage.classList.add("offer-visible");
+    attentionOffer.setAttribute("aria-hidden", "false");
+    window.setTimeout(function () { acceptAttention.focus(); }, 420);
+  }
+
+  function hideOffer() {
+    stage.classList.remove("offer-visible");
+    attentionOffer.setAttribute("aria-hidden", "true");
+    divider.focus();
+  }
+
+  function beginDrag(event) {
+    if (stage.classList.contains("offer-visible")) return;
+    cancelAnimationFrame(animationFrame);
+    dragging = true;
+    startX = event.clientX;
+    startPos = pos;
+    stage.classList.add("dragging");
+    divider.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  }
+
+  function moveDrag(event) {
+    if (!dragging) return;
+    const width = stage.getBoundingClientRect().width;
+    const delta = (event.clientX - startX) / width * 100;
+
+    if (assisted) {
+      setPos(startPos + delta);
+      setStrain(0);
+    } else {
+      const forward = Math.max(0, delta);
+      const backward = Math.min(0, delta) * .3;
+      const resisted = 27 * (1 - Math.exp(-forward / 42));
+      setPos(clamp(startPos + resisted + backward, 4, 34));
+      setStrain(forward / 52);
+    }
+
+    event.preventDefault();
+  }
+
+  function endDrag(event) {
+    if (!dragging) return;
+    dragging = false;
+    stage.classList.remove("dragging");
+    if (divider.hasPointerCapture(event.pointerId)) divider.releasePointerCapture(event.pointerId);
+
+    if (!assisted) animateTo(9, 760, showOffer);
+  }
+
+  function acceptSupport() {
+    assisted = true;
+    stage.classList.add("assisted");
+    stage.classList.remove("offer-visible");
+    attentionOffer.setAttribute("aria-hidden", "true");
+    divider.setAttribute("aria-label", "Шторка рухається вільно з підтримкою уваги");
+    animateTo(window.innerWidth < 590 ? 96 : 94, 1150);
+  }
+
+  divider.addEventListener("pointerdown", beginDrag);
+  divider.addEventListener("pointermove", moveDrag);
+  divider.addEventListener("pointerup", endDrag);
+  divider.addEventListener("pointercancel", endDrag);
+  acceptAttention.addEventListener("click", acceptSupport);
+  closeOffer.addEventListener("click", hideOffer);
+
+  attentionOffer.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") hideOffer();
+  });
+
+  divider.addEventListener("keydown", function (event) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+
+    if (assisted) {
+      if (event.key === "ArrowLeft") setPos(pos - 5);
+      if (event.key === "ArrowRight") setPos(pos + 5);
+      if (event.key === "Home") setPos(4);
+      if (event.key === "End") setPos(96);
+      return;
+    }
+
+    if (event.key === "ArrowRight") setPos(Math.min(34, pos + 2));
+    if (event.key === "ArrowLeft") setPos(Math.max(4, pos - 1));
+    window.clearTimeout(keyboardReturnTimer);
+    keyboardReturnTimer = window.setTimeout(function () { animateTo(9, 650, showOffer); }, 620);
+  });
+
+  setPos(pos);
+})();
+</script>
+</body>
+</html>
