@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemPanel = document.getElementById('item-desc-panel');
     const {
         EVENT_DURATION_MS,
+        formatCountdown,
         formatKyivDate,
         getCalendarRange,
         getNextEventDate
@@ -453,16 +454,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (calendarBtn) calendarBtn.style.display = '';
 
         const diffMs = nextEvent.getTime() - now.getTime();
-        if (diffMs > 0) {
-            const days = Math.floor(diffMs / 86400000);
-            const hours = Math.floor((diffMs % 86400000) / 3600000);
-            const mins = Math.floor((diffMs % 3600000) / 60000);
-
-            let countdown = '';
-            if (days > 0) countdown += `${days}д `;
-            if (hours > 0) countdown += `${hours}г `;
-            countdown += `${mins}хв`;
-
+        const countdown = (typeof formatCountdown === 'function' ? formatCountdown(diffMs) : '');
+        if (countdown) {
             statusText.innerHTML = `<span class="status-word status-offline">ЧЕКАЄМО</span><span class="status-detail"> — ${countdown} до наступної зустрічі</span>`;
         } else {
             statusText.innerHTML = '<span class="status-word status-offline">ЧЕКАЄМО</span>';

@@ -110,6 +110,25 @@
         }).format(date);
     }
 
+    function formatCountdown(diffMs) {
+        if (diffMs <= 0) return '';
+
+        const days = Math.floor(diffMs / 86400000);
+        const hours = Math.floor((diffMs % 86400000) / 3600000);
+        const mins = Math.floor((diffMs % 3600000) / 60000);
+
+        if (days === 0 && hours === 0 && mins === 0) {
+            const secs = Math.max(1, Math.floor((diffMs % 60000) / 1000));
+            return `${secs}с`;
+        }
+
+        let countdown = '';
+        if (days > 0) countdown += `${days}д `;
+        if (hours > 0) countdown += `${hours}г `;
+        countdown += `${mins}хв`;
+        return countdown;
+    }
+
     function formatCalendarDate(date) {
         const parts = getKyivParts(date);
         return `${parts.year}${String(parts.month).padStart(2, '0')}${String(parts.dayOfMonth).padStart(2, '0')}` +
@@ -124,6 +143,7 @@
     global.CafeSchedule = Object.freeze({
         EVENT_DURATION_MS,
         KYIV_TIME_ZONE,
+        formatCountdown,
         formatKyivDate,
         getCalendarRange,
         getKyivParts,
