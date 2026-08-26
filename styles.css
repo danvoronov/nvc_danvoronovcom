@@ -8,7 +8,7 @@
     --border-color: #eaeaea;
     --quote-bg: #f4f4f4;
     --primary-color: #e63946;
-    --link-color: #2980b9;
+    --link-color: var(--text-color);
 }
 
 body {
@@ -467,24 +467,24 @@ a {
     text-decoration: underline;
     text-decoration-color: var(--muted-color);
     text-underline-offset: 3px;
-    transition: color 0.2s;
+    transition: text-decoration-color 0.2s, border-color 0.2s;
 }
 
 a:hover {
-    color: var(--accent-color);
+    color: var(--text-color);
     text-decoration-color: var(--accent-color);
 }
 
 a.content-link {
-    color: var(--link-color);
+    color: var(--text-color);
     text-decoration: none;
-    border-bottom: 1px dotted var(--link-color);
-    transition: all 0.2s;
+    border-bottom: 1px dotted var(--muted-color);
+    transition: border-color 0.2s;
     font-weight: bold;
 }
 
 a.content-link:hover {
-    color: var(--primary-color);
+    color: var(--text-color);
     border-bottom: 1px solid var(--primary-color);
 }
 
