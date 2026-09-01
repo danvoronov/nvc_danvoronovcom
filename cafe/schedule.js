@@ -61,15 +61,6 @@
         return { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) };
     }
 
-    function addDays({ year, month, day }, count) {
-        const shifted = new Date(Date.UTC(year, month - 1, day + count));
-        return {
-            year: shifted.getUTCFullYear(),
-            month: shifted.getUTCMonth() + 1,
-            day: shifted.getUTCDate()
-        };
-    }
-
     function eventStartForDate(dateParts) {
         return kyivDateTimeToDate({
             ...dateParts,
@@ -79,29 +70,27 @@
     }
 
     function getNextEventDate(now = new Date(), configuredDates = []) {
+        if (!Array.isArray(configuredDates)) return null;
+
+        const candidates = [];
         for (const value of configuredDates) {
             const dateParts = parseDateOnly(value);
             if (!dateParts) continue;
 
             const candidate = eventStartForDate(dateParts);
-            if (now.getTime() < candidate.getTime() + EVENT_DURATION_MS) return candidate;
+            if (now.getTime() < candidate.getTime() + EVENT_DURATION_MS) {
+                candidates.push(candidate);
+            }
         }
 
-        const kyivNow = getKyivParts(now);
-        const currentMinutes = kyivNow.hour * 60 + kyivNow.minute;
-        const eventEndMinutes = EVENT_HOUR * 60 + EVENT_MINUTE + EVENT_DURATION_MS / 60000;
-        const daysToThursday = kyivNow.day === 4
-            ? (currentMinutes < eventEndMinutes ? 0 : 7)
-            : (4 - kyivNow.day + 7) % 7;
+        if (candidates.length === 0) return null;
 
-        return eventStartForDate(addDays({
-            year: kyivNow.year,
-            month: kyivNow.month,
-            day: kyivNow.dayOfMonth
-        }, daysToThursday));
+        candidates.sort((a, b) => a.getTime() - b.getTime());
+        return candidates[0];
     }
 
     function formatKyivDate(date, locale = 'uk-UA') {
+        if (!date) return '';
         return new Intl.DateTimeFormat(locale, {
             timeZone: KYIV_TIME_ZONE,
             weekday: 'long',
@@ -111,7 +100,7 @@
     }
 
     function formatCountdown(diffMs) {
-        if (diffMs <= 0) return '';
+        if (typeof diffMs !== 'number' || diffMs <= 0 || isNaN(diffMs)) return '';
 
         const days = Math.floor(diffMs / 86400000);
         const hours = Math.floor((diffMs % 86400000) / 3600000);
@@ -136,6 +125,7 @@
     }
 
     function getCalendarRange(start) {
+        if (!start) return '';
         const end = new Date(start.getTime() + EVENT_DURATION_MS);
         return `${formatCalendarDate(start)}/${formatCalendarDate(end)}`;
     }

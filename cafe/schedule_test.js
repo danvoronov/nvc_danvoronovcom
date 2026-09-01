@@ -57,3 +57,29 @@ Deno.test('formats countdown as empty string when 0 or negative', () => {
     assertEquals(formatCountdown(0), '', 'zero ms');
     assertEquals(formatCountdown(-1000), '', 'negative ms');
 });
+
+Deno.test('returns null when configured dates array is empty', () => {
+    const event = getNextEventDate(new Date('2026-08-13T15:00:00Z'), []);
+    assertEquals(event, null, 'empty configured dates');
+});
+
+Deno.test('returns null when all configured dates have passed', () => {
+    const event = getNextEventDate(new Date('2026-09-01T12:00:00Z'), ['2026-08-06', '2026-08-13', '2026-08-20', '2026-08-27']);
+    assertEquals(event, null, 'all past dates');
+});
+
+Deno.test('returns null when configured dates is null or not an array', () => {
+    assertEquals(getNextEventDate(new Date('2026-08-13T15:00:00Z'), null), null, 'null configured dates');
+    assertEquals(getNextEventDate(new Date('2026-08-13T15:00:00Z'), undefined), null, 'undefined configured dates');
+});
+
+Deno.test('selects earliest upcoming date when array is not sorted', () => {
+    const event = getNextEventDate(new Date('2026-08-10T12:00:00Z'), ['2026-08-27', '2026-08-13', '2026-08-20']);
+    assertEquals(event.toISOString(), '2026-08-13T16:20:00.000Z', 'earliest upcoming date');
+});
+
+Deno.test('getCalendarRange and formatKyivDate handle null safely', () => {
+    const { formatKyivDate } = globalThis.CafeSchedule;
+    assertEquals(getCalendarRange(null), '', 'calendar range null');
+    assertEquals(formatKyivDate(null), '', 'formatKyivDate null');
+});

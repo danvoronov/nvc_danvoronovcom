@@ -336,6 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sounds.click();
 
         const nextEvent = getNextEvent();
+        if (!nextEvent) return;
 
         const url = `https://www.google.com/calendar/render?action=TEMPLATE` +
             `&text=${encodeURIComponent('Емпатійне Кафе')}` +
@@ -434,6 +435,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateStatus() {
         const now = new Date();
         const nextEvent = getNextEvent(now);
+
+        if (!nextEvent) {
+            if (infoDateEl) {
+                infoDateEl.textContent = 'НЕЗАПЛАНОВАНО · ЧЕКАЙТЕ ОНОВЛЕНЬ';
+            }
+            statusText.innerHTML = '<span class="status-word status-offline">НЕЗАПЛАНОВАНО</span><span class="status-detail"> — чекайте оновлень</span>';
+            statusIndicator.className = 'status-indicator offline';
+            setMeetAvailability(false);
+            if (calendarBtn) calendarBtn.style.display = 'none';
+            return;
+        }
+
         const eventEnd = new Date(nextEvent.getTime() + EVENT_DURATION_MS);
 
         if (infoDateEl) {
